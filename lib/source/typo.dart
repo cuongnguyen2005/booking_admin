@@ -1,6 +1,6 @@
 // ignore_for_file: prefer_const_constructors, non_constant_identifier_names
 
-import 'package:booking/source/colors.dart';
+import 'package:booking_admin/source/colors.dart';
 import 'package:flutter/material.dart';
 
 const tStyle = TextStyle();
