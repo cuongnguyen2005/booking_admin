@@ -2,11 +2,11 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-import 'package:booking/components/box/info_box.dart';
-import 'package:booking/components/box/order_form.dart';
-import 'package:booking/components/top_bar/topbar_default.dart';
-import 'package:booking/source/colors.dart';
-import 'package:booking/source/typo.dart';
+import 'package:booking_admin/components/box/info_box.dart';
+import 'package:booking_admin/components/box/order_form.dart';
+import 'package:booking_admin/components/top_bar/topbar_default.dart';
+import 'package:booking_admin/source/colors.dart';
+import 'package:booking_admin/source/typo.dart';
 
 class DetailPaymentArg {
   final String nameHotel;

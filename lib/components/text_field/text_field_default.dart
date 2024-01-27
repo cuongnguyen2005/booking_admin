@@ -1,5 +1,5 @@
-import 'package:booking/source/colors.dart';
-import 'package:booking/source/typo.dart';
+import 'package:booking_admin/source/colors.dart';
+import 'package:booking_admin/source/typo.dart';
 import 'package:flutter/material.dart';
 
 class InputDefault extends StatelessWidget {

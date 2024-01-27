@@ -1,15 +1,15 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
-import 'package:booking/feature/user/search/bloc/search_bloc.dart';
-import 'package:booking/feature/user/search/bloc/search_event.dart';
+import 'package:booking_admin/feature/user/search/bloc/search_bloc.dart';
+import 'package:booking_admin/feature/user/search/bloc/search_event.dart';
 import 'package:flutter/material.dart';
-import 'package:booking/components/dialog/no_results.dart';
-import 'package:booking/components/top_bar/topbar_default.dart';
-import 'package:booking/components/top_bar/topbar_secondary.dart';
-import 'package:booking/data/hotels.dart';
-import 'package:booking/feature/user/detail_hotel/detail_hotel.dart';
-import 'package:booking/source/colors.dart';
-import 'package:booking/source/typo.dart';
+import 'package:booking_admin/components/dialog/no_results.dart';
+import 'package:booking_admin/components/top_bar/topbar_default.dart';
+import 'package:booking_admin/components/top_bar/topbar_secondary.dart';
+import 'package:booking_admin/data/hotels.dart';
+import 'package:booking_admin/feature/user/detail_hotel/detail_hotel.dart';
+import 'package:booking_admin/source/colors.dart';
+import 'package:booking_admin/source/typo.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'bloc/search_state.dart';
 

@@ -1,5 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'package:booking/feature/user/book/customer_info.dart';
+import 'package:booking_admin/feature/user/book/customer_info.dart';
 
 class BookingEvent {}
 

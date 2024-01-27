@@ -1,6 +1,6 @@
-import 'package:booking/data/booking.dart';
-import 'package:booking/data/favorite_hotel.dart';
-import 'package:booking/data/hotels.dart';
+import 'package:booking_admin/data/booking.dart';
+import 'package:booking_admin/data/favorite_hotel.dart';
+import 'package:booking_admin/data/hotels.dart';
 import 'package:dio/dio.dart';
 
 class BookingRepo {

@@ -1,8 +1,8 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 //dùng trong trang chủ phần tìm kiếm
-import 'package:booking/source/typo.dart';
+import 'package:booking_admin/source/typo.dart';
 import 'package:flutter/material.dart';
-import 'package:booking/source/colors.dart';
+import 'package:booking_admin/source/colors.dart';
 
 class SearchBoxSecondary extends StatelessWidget {
   const SearchBoxSecondary({

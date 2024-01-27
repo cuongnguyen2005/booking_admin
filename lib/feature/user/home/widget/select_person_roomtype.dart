@@ -1,10 +1,10 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first, must_be_immutable
-import 'package:booking/components/bottom_sheet/bottom_sheet_secondary.dart';
-import 'package:booking/components/select_widget/radio_select.dart';
+import 'package:booking_admin/components/bottom_sheet/bottom_sheet_secondary.dart';
+import 'package:booking_admin/components/select_widget/radio_select.dart';
 import 'package:flutter/material.dart';
-import 'package:booking/components/btn/button_primary.dart';
-import 'package:booking/source/colors.dart';
-import 'package:booking/source/typo.dart';
+import 'package:booking_admin/components/btn/button_primary.dart';
+import 'package:booking_admin/source/colors.dart';
+import 'package:booking_admin/source/typo.dart';
 
 class SelectPersonAndRoomType extends StatefulWidget {
   SelectPersonAndRoomType({

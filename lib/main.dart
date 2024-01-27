@@ -1,6 +1,6 @@
-import 'package:booking/feature/user/bottom_navi.dart';
-import 'package:booking/routes.dart';
-import 'package:booking/source/colors.dart';
+import 'package:booking_admin/feature/user/bottom_navi.dart';
+import 'package:booking_admin/routes.dart';
+import 'package:booking_admin/source/colors.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';

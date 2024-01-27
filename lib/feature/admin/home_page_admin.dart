@@ -1,11 +1,11 @@
 import 'dart:convert';
 
-import 'package:booking/components/top_bar/topbar_third.dart';
-import 'package:booking/data/hotels.dart';
-import 'package:booking/data/user_account.dart';
-import 'package:booking/feature/admin/add_hotel.dart';
-import 'package:booking/source/call_api/booking_api.dart';
-import 'package:booking/source/colors.dart';
+import 'package:booking_admin/components/top_bar/topbar_third.dart';
+import 'package:booking_admin/data/hotels.dart';
+import 'package:booking_admin/data/user_account.dart';
+import 'package:booking_admin/feature/admin/add_hotel.dart';
+import 'package:booking_admin/source/call_api/booking_api.dart';
+import 'package:booking_admin/source/colors.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';

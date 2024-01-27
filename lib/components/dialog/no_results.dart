@@ -1,4 +1,4 @@
-import 'package:booking/source/typo.dart';
+import 'package:booking_admin/source/typo.dart';
 import 'package:flutter/material.dart';
 
 class NoResult extends StatelessWidget {

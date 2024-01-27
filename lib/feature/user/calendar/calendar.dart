@@ -1,10 +1,10 @@
-import 'package:booking/components/top_bar/topbar_third.dart';
-import 'package:booking/data/booking.dart';
-import 'package:booking/feature/user/calendar/bloc/calendar_bloc.dart';
-import 'package:booking/feature/user/calendar/bloc/calendar_event.dart';
-import 'package:booking/feature/user/detail_payment.dart';
-import 'package:booking/source/colors.dart';
-import 'package:booking/source/typo.dart';
+import 'package:booking_admin/components/top_bar/topbar_third.dart';
+import 'package:booking_admin/data/booking.dart';
+import 'package:booking_admin/feature/user/calendar/bloc/calendar_bloc.dart';
+import 'package:booking_admin/feature/user/calendar/bloc/calendar_event.dart';
+import 'package:booking_admin/feature/user/detail_payment.dart';
+import 'package:booking_admin/source/colors.dart';
+import 'package:booking_admin/source/typo.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';

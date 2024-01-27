@@ -1,23 +1,23 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
 
-import 'package:booking/components/bottom_sheet/bottom_sheet_secondary.dart';
-import 'package:booking/components/box/search_box.dart';
-import 'package:booking/data/hotels.dart';
-import 'package:booking/data/location.dart';
-import 'package:booking/data/reason.dart';
-import 'package:booking/feature/user/home/bloc/home_bloc.dart';
-import 'package:booking/feature/user/home/bloc/home_event.dart';
-import 'package:booking/feature/user/home/widget/location_big_widget.dart';
-import 'package:booking/feature/user/home/widget/select_person_roomtype.dart';
-import 'package:booking/feature/user/search/search_page.dart';
+import 'package:booking_admin/components/bottom_sheet/bottom_sheet_secondary.dart';
+import 'package:booking_admin/components/box/search_box.dart';
+import 'package:booking_admin/data/hotels.dart';
+import 'package:booking_admin/data/location.dart';
+import 'package:booking_admin/data/reason.dart';
+import 'package:booking_admin/feature/user/home/bloc/home_bloc.dart';
+import 'package:booking_admin/feature/user/home/bloc/home_event.dart';
+import 'package:booking_admin/feature/user/home/widget/location_big_widget.dart';
+import 'package:booking_admin/feature/user/home/widget/select_person_roomtype.dart';
+import 'package:booking_admin/feature/user/search/search_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
-import 'package:booking/components/btn/button_icon.dart';
-import 'package:booking/feature/user/detail_hotel/detail_hotel.dart';
-import 'package:booking/source/colors.dart';
-import 'package:booking/source/typo.dart';
+import 'package:booking_admin/components/btn/button_icon.dart';
+import 'package:booking_admin/feature/user/detail_hotel/detail_hotel.dart';
+import 'package:booking_admin/source/colors.dart';
+import 'package:booking_admin/source/typo.dart';
 
 import 'bloc/home_state.dart';
 

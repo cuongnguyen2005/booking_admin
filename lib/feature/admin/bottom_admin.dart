@@ -1,7 +1,7 @@
-import 'package:booking/feature/admin/add_hotel.dart';
-import 'package:booking/feature/admin/home_page_admin.dart';
-import 'package:booking/feature/admin/setting_admin.dart';
-import 'package:booking/source/colors.dart';
+import 'package:booking_admin/feature/admin/add_hotel.dart';
+import 'package:booking_admin/feature/admin/home_page_admin.dart';
+import 'package:booking_admin/feature/admin/setting_admin.dart';
+import 'package:booking_admin/source/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 

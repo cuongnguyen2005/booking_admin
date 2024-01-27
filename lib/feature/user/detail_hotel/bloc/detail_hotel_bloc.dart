@@ -1,5 +1,5 @@
-import 'package:booking/data/favorite_hotel.dart';
-import 'package:booking/source/call_api/booking_api.dart';
+import 'package:booking_admin/data/favorite_hotel.dart';
+import 'package:booking_admin/source/call_api/booking_api.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

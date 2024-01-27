@@ -1,8 +1,8 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 //dùng trong thông tin thanh toán, và thông tin đặt phòng
 import 'package:flutter/material.dart';
-import 'package:booking/source/colors.dart';
-import 'package:booking/source/typo.dart';
+import 'package:booking_admin/source/colors.dart';
+import 'package:booking_admin/source/typo.dart';
 
 class OrderForm extends StatelessWidget {
   const OrderForm({

@@ -1,15 +1,15 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'package:booking/feature/user/book/bloc/booking_event.dart';
+import 'package:booking_admin/feature/user/book/bloc/booking_event.dart';
 import 'package:flutter/material.dart';
-import 'package:booking/components/bottom_sheet/bottom_sheet_default.dart';
-import 'package:booking/components/text_field/box_input.dart';
-import 'package:booking/components/text_field/text_field_default.dart';
-import 'package:booking/components/top_bar/topbar_default.dart';
-import 'package:booking/data/hotels.dart';
-import 'package:booking/feature/user/book/checkout.dart';
-import 'package:booking/source/colors.dart';
-import 'package:booking/source/typo.dart';
-import 'package:booking/source/utils/validate_util.dart';
+import 'package:booking_admin/components/bottom_sheet/bottom_sheet_default.dart';
+import 'package:booking_admin/components/text_field/box_input.dart';
+import 'package:booking_admin/components/text_field/text_field_default.dart';
+import 'package:booking_admin/components/top_bar/topbar_default.dart';
+import 'package:booking_admin/data/hotels.dart';
+import 'package:booking_admin/feature/user/book/checkout.dart';
+import 'package:booking_admin/source/colors.dart';
+import 'package:booking_admin/source/typo.dart';
+import 'package:booking_admin/source/utils/validate_util.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'bloc/booking_bloc.dart';
 import 'bloc/booking_state.dart';

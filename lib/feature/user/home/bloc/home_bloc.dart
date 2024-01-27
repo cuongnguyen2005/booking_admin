@@ -1,5 +1,5 @@
-import 'package:booking/data/hotels.dart';
-import 'package:booking/source/call_api/booking_api.dart';
+import 'package:booking_admin/data/hotels.dart';
+import 'package:booking_admin/source/call_api/booking_api.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'home_event.dart';

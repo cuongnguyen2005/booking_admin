@@ -1,10 +1,10 @@
-import 'package:booking/feature/user/calendar/bloc/calendar_bloc.dart';
-import 'package:booking/feature/user/calendar/calendar.dart';
-import 'package:booking/feature/user/favorite.dart';
-import 'package:booking/feature/user/home/bloc/home_bloc.dart';
-import 'package:booking/feature/user/home/home.dart';
-import 'package:booking/feature/user/setting/settings.dart';
-import 'package:booking/source/colors.dart';
+import 'package:booking_admin/feature/user/calendar/bloc/calendar_bloc.dart';
+import 'package:booking_admin/feature/user/calendar/calendar.dart';
+import 'package:booking_admin/feature/user/favorite.dart';
+import 'package:booking_admin/feature/user/home/bloc/home_bloc.dart';
+import 'package:booking_admin/feature/user/home/home.dart';
+import 'package:booking_admin/feature/user/setting/settings.dart';
+import 'package:booking_admin/source/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';

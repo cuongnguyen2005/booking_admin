@@ -1,16 +1,16 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'package:booking/source/call_api/booking_api.dart';
+import 'package:booking_admin/source/call_api/booking_api.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
-import 'package:booking/components/bottom_sheet/bottom_sheet_default.dart';
-import 'package:booking/components/box/info_box.dart';
-import 'package:booking/components/box/order_form.dart';
-import 'package:booking/components/top_bar/topbar_default.dart';
-import 'package:booking/data/hotels.dart';
-import 'package:booking/feature/user/book/payment_success.dart';
-import 'package:booking/source/colors.dart';
-import 'package:booking/source/typo.dart';
+import 'package:booking_admin/components/bottom_sheet/bottom_sheet_default.dart';
+import 'package:booking_admin/components/box/info_box.dart';
+import 'package:booking_admin/components/box/order_form.dart';
+import 'package:booking_admin/components/top_bar/topbar_default.dart';
+import 'package:booking_admin/data/hotels.dart';
+import 'package:booking_admin/feature/user/book/payment_success.dart';
+import 'package:booking_admin/source/colors.dart';
+import 'package:booking_admin/source/typo.dart';
 import 'bloc/booking_bloc.dart';
 
 class CheckoutArg {

@@ -1,22 +1,22 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
 import 'dart:typed_data';
-import 'package:booking/components/top_bar/topbar_default.dart';
+import 'package:booking_admin/components/top_bar/topbar_default.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:booking/components/btn/button_primary.dart';
-import 'package:booking/components/select_widget/dropdown_select.dart';
-import 'package:booking/components/select_widget/radio_select.dart';
-import 'package:booking/components/text_field/box_input.dart';
-import 'package:booking/components/text_field/text_field_default.dart';
-import 'package:booking/components/top_bar/topbar_third.dart';
-import 'package:booking/data/hotels.dart';
-import 'package:booking/data/location.dart';
-import 'package:booking/source/call_api/booking_api.dart';
-import 'package:booking/source/colors.dart';
-import 'package:booking/source/typo.dart';
+import 'package:booking_admin/components/btn/button_primary.dart';
+import 'package:booking_admin/components/select_widget/dropdown_select.dart';
+import 'package:booking_admin/components/select_widget/radio_select.dart';
+import 'package:booking_admin/components/text_field/box_input.dart';
+import 'package:booking_admin/components/text_field/text_field_default.dart';
+import 'package:booking_admin/components/top_bar/topbar_third.dart';
+import 'package:booking_admin/data/hotels.dart';
+import 'package:booking_admin/data/location.dart';
+import 'package:booking_admin/source/call_api/booking_api.dart';
+import 'package:booking_admin/source/colors.dart';
+import 'package:booking_admin/source/typo.dart';
 
 class AddHotel extends StatefulWidget {
   const AddHotel({

@@ -1,6 +1,6 @@
-import 'package:booking/components/top_bar/topbar_third.dart';
-import 'package:booking/source/colors.dart';
-import 'package:booking/source/typo.dart';
+import 'package:booking_admin/components/top_bar/topbar_third.dart';
+import 'package:booking_admin/source/colors.dart';
+import 'package:booking_admin/source/typo.dart';
 import 'package:flutter/material.dart';
 
 class FavoritePage extends StatefulWidget {

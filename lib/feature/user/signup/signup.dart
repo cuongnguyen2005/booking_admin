@@ -1,13 +1,13 @@
-import 'package:booking/components/btn/button_outline.dart';
-import 'package:booking/components/btn/button_primary.dart';
-import 'package:booking/components/dialog/dialog_primary.dart';
-import 'package:booking/components/text_field/text_field_default.dart';
-import 'package:booking/components/top_bar/topbar_no_background.dart';
-import 'package:booking/feature/user/bottom_navi.dart';
-import 'package:booking/feature/user/signup/bloc/signup_bloc.dart';
-import 'package:booking/source/colors.dart';
-import 'package:booking/source/typo.dart';
-import 'package:booking/source/utils/validate_util.dart';
+import 'package:booking_admin/components/btn/button_outline.dart';
+import 'package:booking_admin/components/btn/button_primary.dart';
+import 'package:booking_admin/components/dialog/dialog_primary.dart';
+import 'package:booking_admin/components/text_field/text_field_default.dart';
+import 'package:booking_admin/components/top_bar/topbar_no_background.dart';
+import 'package:booking_admin/feature/user/bottom_navi.dart';
+import 'package:booking_admin/feature/user/signup/bloc/signup_bloc.dart';
+import 'package:booking_admin/source/colors.dart';
+import 'package:booking_admin/source/typo.dart';
+import 'package:booking_admin/source/utils/validate_util.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
