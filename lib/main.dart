@@ -1,4 +1,4 @@
-import 'package:booking_admin/feature/user/bottom_navi.dart';
+import 'package:booking_admin/feature/bottom_navi.dart';
 import 'package:booking_admin/routes.dart';
 import 'package:booking_admin/source/colors.dart';
 import 'package:firebase_core/firebase_core.dart';

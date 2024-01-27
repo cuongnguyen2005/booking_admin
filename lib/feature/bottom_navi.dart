@@ -1,19 +1,27 @@
-import 'package:booking_admin/feature/admin/add_hotel.dart';
-import 'package:booking_admin/feature/admin/home_page_admin.dart';
-import 'package:booking_admin/feature/admin/setting_admin.dart';
+import 'package:booking_admin/feature/add_hotel.dart';
+import 'package:booking_admin/feature/calendar/bloc/calendar_bloc.dart';
+import 'package:booking_admin/feature/calendar/calendar.dart';
+import 'package:booking_admin/feature/home/home.dart';
+import 'package:booking_admin/feature/user/home/bloc/home_bloc.dart';
+import 'package:booking_admin/feature/setting/settings.dart';
 import 'package:booking_admin/source/colors.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 
-class BottomNaviAdmin extends StatefulWidget {
-  const BottomNaviAdmin({super.key});
-  static String routeName = 'bottom_navi_admin';
+class BottomNavi extends StatefulWidget {
+  const BottomNavi({
+    Key? key,
+    this.isUpdate,
+  }) : super(key: key);
+  final bool? isUpdate;
+  static String routeName = "/bottom";
 
   @override
-  State<BottomNaviAdmin> createState() => _BottomNaviAdminState();
+  State<BottomNavi> createState() => _BottomNaviState();
 }
 
-class _BottomNaviAdminState extends State<BottomNaviAdmin> {
+class _BottomNaviState extends State<BottomNavi> {
   @override
   void initState() {
     super.initState();
@@ -24,10 +32,16 @@ class _BottomNaviAdminState extends State<BottomNaviAdmin> {
   @override
   Widget build(BuildContext context) {
     final tabs = [
-      const HomePageAdmin(),
+      BlocProvider(
+        create: (context) => HomeBloc(),
+        child: const HomePage(),
+      ),
       const AddHotel(),
-      const HomePageAdmin(),
-      const SettingAdmin(),
+      BlocProvider(
+        create: (context) => CalendarBloc(),
+        child: const CalendarWidget(),
+      ),
+      const Settings(),
     ];
     return Scaffold(
       body: tabs[_pageIndex],
@@ -59,8 +73,8 @@ class _BottomNaviAdminState extends State<BottomNaviAdmin> {
                 text: 'Thêm mới',
               ),
               GButton(
-                icon: Icons.notifications,
-                text: 'Thông báo',
+                icon: Icons.calendar_month,
+                text: 'Lịch trình',
               ),
               GButton(
                 icon: Icons.person,

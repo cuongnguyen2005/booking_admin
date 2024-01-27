@@ -3,61 +3,52 @@ import 'package:booking_admin/components/btn/button_primary.dart';
 import 'package:booking_admin/components/dialog/dialog_primary.dart';
 import 'package:booking_admin/components/text_field/text_field_default.dart';
 import 'package:booking_admin/components/top_bar/topbar_no_background.dart';
-import 'package:booking_admin/feature/user/bottom_navi.dart';
-import 'package:booking_admin/feature/user/signup/bloc/signup_bloc.dart';
+import 'package:booking_admin/feature/bottom_navi.dart';
+import 'package:booking_admin/feature/login/bloc/login_event.dart';
+import 'package:booking_admin/feature/signup/signup.dart';
 import 'package:booking_admin/source/colors.dart';
 import 'package:booking_admin/source/typo.dart';
 import 'package:booking_admin/source/utils/validate_util.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'bloc/signup_event.dart';
-import 'bloc/signup_state.dart';
+import 'bloc/login_bloc.dart';
+import 'bloc/login_state.dart';
 
-class SignupPage extends StatefulWidget {
-  const SignupPage({super.key});
-  static String routeName = 'signup_page';
+class LoginPage extends StatefulWidget {
+  const LoginPage({super.key});
+  static String routeName = 'login_page';
 
   @override
-  State<SignupPage> createState() => _SignupPageState();
+  State<LoginPage> createState() => _LoginPageState();
 }
 
-class _SignupPageState extends State<SignupPage> {
+class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
-    return BlocListener<SignupBloc, SignupState>(
+    return BlocListener<LoginBloc, LoginState>(
       listener: (context, state) {
-        if (state is SignupSuccessState) {
-          onTapBack();
+        if (state is LoginSucessState) {
           Navigator.pushNamedAndRemoveUntil(
               context, BottomNavi.routeName, (route) => false);
         }
-        if (state is SignupErrorUserState) {
+        if (state is LoginErrorState) {
           //remove loading
           onTapBack();
           showDialog(
             context: context,
             builder: (context) {
               return DialogPrimary(
-                  content: 'Tài khoản đã tồn tại',
-                  buttonText: 'Đồng ý',
-                  onTap: onTapBack);
+                content: 'Tài khoản hoặc mật khẩu không đúng',
+                buttonText: 'Đồng ý',
+                onTap: onTapBack,
+              );
             },
           );
         }
-        if (state is SignupErrorNetworkState) {
-          //remove loading
+        if (state is LoginOnTapBackState) {
           onTapBack();
-          showDialog(
-            context: context,
-            builder: (context) {
-              return DialogPrimary(
-                  content: 'Lỗi kết nối mạng',
-                  buttonText: 'Đồng ý',
-                  onTap: onTapBack);
-            },
-          );
         }
       },
       child: Scaffold(
@@ -76,32 +67,11 @@ class _SignupPageState extends State<SignupPage> {
                       fit: BoxFit.cover,
                     ),
                     Form(
-                      key: context.read<SignupBloc>().formKey,
+                      key: context.read<LoginBloc>().formKey,
                       child: Container(
                         padding: const EdgeInsets.all(16),
                         child: Column(
                           children: [
-                            InputDefault(
-                              hintText: 'Nhập tên của bạn',
-                              obscureText: false,
-                              validator: ValidateUntils.validateName,
-                              autovalidateMode:
-                                  AutovalidateMode.onUserInteraction,
-                              controller:
-                                  context.read<SignupBloc>().nameController,
-                            ),
-                            const SizedBox(height: 16),
-                            InputDefault(
-                              hintText: 'Nhập số điện thoại',
-                              obscureText: false,
-                              validator: ValidateUntils.validateName,
-                              autovalidateMode:
-                                  AutovalidateMode.onUserInteraction,
-                              controller: context
-                                  .read<SignupBloc>()
-                                  .phoneNumbereController,
-                            ),
-                            const SizedBox(height: 16),
                             InputDefault(
                               hintText: 'Nhập email',
                               obscureText: false,
@@ -109,10 +79,10 @@ class _SignupPageState extends State<SignupPage> {
                               autovalidateMode:
                                   AutovalidateMode.onUserInteraction,
                               controller:
-                                  context.read<SignupBloc>().usernameController,
+                                  context.read<LoginBloc>().usernameController,
                             ),
                             const SizedBox(height: 16),
-                            BlocBuilder<SignupBloc, SignupState>(
+                            BlocBuilder<LoginBloc, LoginState>(
                               builder: (context, state) {
                                 return InputDefault(
                                   hintText: 'Nhập mật khẩu',
@@ -121,7 +91,7 @@ class _SignupPageState extends State<SignupPage> {
                                   autovalidateMode:
                                       AutovalidateMode.onUserInteraction,
                                   controller:
-                                      context.read<SignupBloc>().pwController,
+                                      context.read<LoginBloc>().pwController,
                                   suffixIcon: InkWell(
                                     onTap: onTapVisibility,
                                     child: state.visibility == true
@@ -139,7 +109,7 @@ class _SignupPageState extends State<SignupPage> {
                       padding: const EdgeInsets.symmetric(horizontal: 16),
                       child: ButtonPrimary(
                         text: 'Tiếp tục',
-                        onTap: onTapSignup,
+                        onTap: onTapLogin,
                       ),
                     ),
                     Container(
@@ -200,10 +170,10 @@ class _SignupPageState extends State<SignupPage> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text('Bạn đã có tài khoản? ', style: tStyle.BaseBoldBlack()),
+              Text('Bạn chưa có tài khoản? ', style: tStyle.BaseBoldBlack()),
               InkWell(
-                  onTap: onTapBack,
-                  child: Text('Đăng nhập', style: tStyle.BaseBoldPrimary())),
+                  onTap: onTapSignup,
+                  child: Text('Đăng ký', style: tStyle.BaseBoldPrimary())),
             ],
           ),
         ),
@@ -211,17 +181,21 @@ class _SignupPageState extends State<SignupPage> {
     );
   }
 
+  void onTapVisibility() {
+    context.read<LoginBloc>().add(LoginVisibilityEvent());
+  }
+
   void onTapBack() {
     Navigator.pop(context);
   }
 
-  void onTapVisibility() {
-    context.read<SignupBloc>().add(SignupVisibilityEvent());
+  void onTapSignup() {
+    Navigator.pushNamed(context, SignupPage.routeName);
   }
 
-  void onTapSignup() async {
-    if (context.read<SignupBloc>().formKey.currentState!.validate()) {
-      // add loading
+  void onTapLogin() async {
+    if (context.read<LoginBloc>().formKey.currentState!.validate()) {
+      //add loading
       showDialog(
           barrierDismissible: false,
           context: context,
@@ -231,7 +205,7 @@ class _SignupPageState extends State<SignupPage> {
               color: AppColors.primary,
             ));
           });
-      context.read<SignupBloc>().add(SignupSubmitEvent());
+      context.read<LoginBloc>().add(LoginSubmitEvent());
     }
   }
 }
