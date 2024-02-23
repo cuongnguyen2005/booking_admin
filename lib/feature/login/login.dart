@@ -53,115 +53,109 @@ class _LoginPageState extends State<LoginPage> {
       },
       child: Scaffold(
         backgroundColor: AppColors.white,
-        body: Stack(
+        body: ListView(
+          padding: EdgeInsets.zero,
           children: [
-            ListView(
-              padding: EdgeInsets.zero,
+            Column(
               children: [
-                Column(
-                  children: [
-                    Image.asset(
-                      'assets/images/Herobanner.png',
-                      width: double.infinity,
-                      height: size.height * 1 / 3,
-                      fit: BoxFit.cover,
-                    ),
-                    Form(
-                      key: context.read<LoginBloc>().formKey,
-                      child: Container(
-                        padding: const EdgeInsets.all(16),
-                        child: Column(
-                          children: [
-                            InputDefault(
-                              hintText: 'Nhập email',
-                              obscureText: false,
-                              validator: ValidateUntils.validateEmail,
+                Image.asset(
+                  'assets/images/Herobanner.png',
+                  width: double.infinity,
+                  height: size.height * 1 / 3,
+                  fit: BoxFit.cover,
+                ),
+                Form(
+                  key: context.read<LoginBloc>().formKey,
+                  child: Container(
+                    padding: const EdgeInsets.all(16),
+                    child: Column(
+                      children: [
+                        InputDefault(
+                          hintText: 'Nhập email',
+                          obscureText: false,
+                          validator: ValidateUntils.validateEmail,
+                          autovalidateMode: AutovalidateMode.onUserInteraction,
+                          controller:
+                              context.read<LoginBloc>().usernameController,
+                        ),
+                        const SizedBox(height: 16),
+                        BlocBuilder<LoginBloc, LoginState>(
+                          builder: (context, state) {
+                            return InputDefault(
+                              hintText: 'Nhập mật khẩu',
+                              obscureText: state.visibility,
+                              validator: ValidateUntils.validatePassword,
                               autovalidateMode:
                                   AutovalidateMode.onUserInteraction,
                               controller:
-                                  context.read<LoginBloc>().usernameController,
-                            ),
-                            const SizedBox(height: 16),
-                            BlocBuilder<LoginBloc, LoginState>(
-                              builder: (context, state) {
-                                return InputDefault(
-                                  hintText: 'Nhập mật khẩu',
-                                  obscureText: state.visibility,
-                                  validator: ValidateUntils.validatePassword,
-                                  autovalidateMode:
-                                      AutovalidateMode.onUserInteraction,
-                                  controller:
-                                      context.read<LoginBloc>().pwController,
-                                  suffixIcon: InkWell(
-                                    onTap: onTapVisibility,
-                                    child: state.visibility == true
-                                        ? const Icon(Icons.visibility_off)
-                                        : const Icon(Icons.visibility),
-                                  ),
-                                );
-                              },
-                            ),
-                          ],
+                                  context.read<LoginBloc>().pwController,
+                              suffixIcon: InkWell(
+                                onTap: onTapVisibility,
+                                child: state.visibility == true
+                                    ? const Icon(Icons.visibility_off)
+                                    : const Icon(Icons.visibility),
+                              ),
+                            );
+                          },
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  child: ButtonPrimary(
+                    text: 'Tiếp tục',
+                    onTap: onTapLogin,
+                  ),
+                ),
+                Container(
+                  padding: const EdgeInsets.all(16),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        flex: 1,
+                        child: Container(
+                          color: AppColors.lightGrey,
+                          height: 1,
                         ),
                       ),
-                    ),
-                    Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 16),
-                      child: ButtonPrimary(
-                        text: 'Tiếp tục',
-                        onTap: onTapLogin,
+                      Expanded(
+                        flex: 3,
+                        child: Text(
+                          ' Hoặc đăng nhập/đăng ký với ',
+                          style: tStyle.BaseRegularGrey(),
+                          textAlign: TextAlign.center,
+                        ),
                       ),
-                    ),
-                    Container(
-                      padding: const EdgeInsets.all(16),
-                      child: Row(
-                        children: [
-                          Expanded(
-                            flex: 1,
-                            child: Container(
-                              color: AppColors.lightGrey,
-                              height: 1,
-                            ),
-                          ),
-                          Expanded(
-                            flex: 3,
-                            child: Text(
-                              ' Hoặc đăng nhập/đăng ký với ',
-                              style: tStyle.BaseRegularGrey(),
-                              textAlign: TextAlign.center,
-                            ),
-                          ),
-                          Expanded(
-                            flex: 1,
-                            child: Container(
-                              color: AppColors.lightGrey,
-                              height: 1,
-                            ),
-                          ),
-                        ],
+                      Expanded(
+                        flex: 1,
+                        child: Container(
+                          color: AppColors.lightGrey,
+                          height: 1,
+                        ),
                       ),
-                    ),
-                    Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 16),
-                      child: ButtonOutline(
-                        text: 'Google',
-                        onTap: () {},
-                      ),
-                    ),
-                    const SizedBox(height: 16),
-                    Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 16),
-                      child: ButtonOutline(
-                        text: 'Facbook',
-                        onTap: () {},
-                      ),
-                    ),
-                    Container(height: 60),
-                  ],
+                    ],
+                  ),
                 ),
+                Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  child: ButtonOutline(
+                    text: 'Google',
+                    onTap: () {},
+                  ),
+                ),
+                const SizedBox(height: 16),
+                Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  child: ButtonOutline(
+                    text: 'Facbook',
+                    onTap: () {},
+                  ),
+                ),
+                Container(height: 60),
               ],
             ),
-            const TopBarNoBackground(text: '')
           ],
         ),
         bottomSheet: Container(

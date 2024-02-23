@@ -1,4 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:booking_admin/components/btn/button_primary.dart';
+import 'package:booking_admin/data/booking.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:booking_admin/components/box/info_box.dart';
@@ -7,43 +9,12 @@ import 'package:booking_admin/components/top_bar/topbar_default.dart';
 import 'package:booking_admin/source/colors.dart';
 import 'package:booking_admin/source/typo.dart';
 
-class DetailPaymentArg {
-  final String nameHotel;
-  final int giaPhong;
-  final String name;
-  final String email;
-  final String phoneNumber;
-  final DateTime startDate;
-  final DateTime endDate;
-  final int people;
-  final String roomType;
-  final int room;
-  final int night;
-  final int totalMoney;
-  final int trangThai;
-  DetailPaymentArg({
-    required this.nameHotel,
-    required this.giaPhong,
-    required this.name,
-    required this.email,
-    required this.phoneNumber,
-    required this.startDate,
-    required this.endDate,
-    required this.people,
-    required this.roomType,
-    required this.room,
-    required this.night,
-    required this.totalMoney,
-    required this.trangThai,
-  });
-}
-
 class DetailPayment extends StatefulWidget {
   const DetailPayment({
     Key? key,
-    required this.arg,
+    required this.booking,
   }) : super(key: key);
-  final DetailPaymentArg arg;
+  final Booking? booking;
   static String routeName = 'detail_payment';
 
   @override
@@ -55,19 +26,21 @@ class _DetailPaymentState extends State<DetailPayment> {
   void initState() {
     super.initState();
     getStatusText();
+    statusCode = widget.booking?.trangThai;
   }
 
   void getStatusText() {
-    if (widget.arg.trangThai == 2) {
-      status = 'Đang xử lý';
-    } else if (widget.arg.trangThai == 1) {
-      status = 'Từ chối';
-    } else if (widget.arg.trangThai == 0) {
-      status = 'Thành công';
+    if (widget.booking?.trangThai == 2) {
+      statusName = 'Đang xử lý';
+    } else if (widget.booking?.trangThai == 1) {
+      statusName = 'Đã từ chối';
+    } else if (widget.booking?.trangThai == 0) {
+      statusName = 'Thành công';
     }
   }
 
-  String status = '';
+  String statusName = '';
+  int? statusCode;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -92,29 +65,33 @@ class _DetailPaymentState extends State<DetailPayment> {
                             horizontal: 12, vertical: 4),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(16),
-                          color: widget.arg.trangThai == 2
+                          color: widget.booking?.trangThai == 2
                               ? AppColors.yellow.withOpacity(0.2)
-                              : AppColors.green.withOpacity(0.2),
+                              : widget.booking?.trangThai == 1
+                                  ? AppColors.red.withOpacity(0.2)
+                                  : AppColors.green.withOpacity(0.2),
                         ),
                         child: Text(
-                          status,
-                          style: widget.arg.trangThai == 2
+                          statusName,
+                          style: widget.booking?.trangThai == 2
                               ? tStyle.BaseRegularYellow()
-                              : tStyle.BaseRegularGreen(),
+                              : widget.booking?.trangThai == 1
+                                  ? tStyle.BaseRegularRed()
+                                  : tStyle.BaseRegularGreen(),
                           textAlign: TextAlign.center,
                         ),
                       ),
                       const SizedBox(height: 16),
                       OrderForm(
-                        nameHotel: widget.arg.nameHotel,
-                        night: '${widget.arg.night} đêm',
-                        people: '${widget.arg.people}  người',
+                        nameHotel: widget.booking!.tenKS,
+                        night: '${widget.booking?.soDem} đêm',
+                        people: '${widget.booking?.soNguoi}  người',
                         roomType:
-                            '${widget.arg.roomType}   x ${widget.arg.room}',
+                            '${widget.booking?.roomType}   x ${widget.booking?.roomType}',
                         checkin:
-                            '${DateFormat.yMd().format(widget.arg.startDate)} (15:00 - 03:00)',
+                            '${DateFormat.yMd().format(widget.booking!.ngayNhan)} (15:00 - 03:00)',
                         checkout:
-                            '${DateFormat.yMd().format(widget.arg.endDate)} (trước 11:00)',
+                            '${DateFormat.yMd().format(widget.booking!.ngayTra)} (trước 11:00)',
                       )
                     ],
                   ),
@@ -141,7 +118,7 @@ class _DetailPaymentState extends State<DetailPayment> {
                               Text('Tên khách',
                                   style: tStyle.BaseRegularBlack()),
                               const SizedBox(height: 5),
-                              Text(widget.arg.name,
+                              Text(widget.booking!.hoTen,
                                   style: tStyle.BaseBoldBlack()),
                             ],
                           )
@@ -162,13 +139,12 @@ class _DetailPaymentState extends State<DetailPayment> {
                         style: tStyle.BaseBoldBlack(),
                       ),
                       const SizedBox(height: 16),
-                      InfoBox(title: 'Họ tên', content: widget.arg.name),
+                      InfoBox(title: 'Họ tên', content: widget.booking!.hoTen),
                       const SizedBox(height: 10),
                       InfoBox(
-                          title: 'Số điện thoại',
-                          content: widget.arg.phoneNumber),
+                          title: 'Số điện thoại', content: widget.booking!.sdt),
                       const SizedBox(height: 10),
-                      InfoBox(title: 'Email', content: widget.arg.email),
+                      InfoBox(title: 'Email', content: widget.booking!.email),
                     ],
                   ),
                 ),
@@ -186,21 +162,74 @@ class _DetailPaymentState extends State<DetailPayment> {
                       const SizedBox(height: 16),
                       InfoBox(
                           title: 'Giá phòng',
-                          content: '${widget.arg.giaPhong} đ'),
+                          content: '${widget.booking?.giaPhong} đ'),
                       const SizedBox(height: 10),
                       InfoBox(
-                          title: 'Số phòng', content: 'x ${widget.arg.room}'),
+                          title: 'Số phòng',
+                          content: 'x ${widget.booking?.soPhong}'),
                       const SizedBox(height: 10),
                       InfoBox(
-                          title: 'Số đêm', content: 'x ${widget.arg.night}'),
+                          title: 'Số đêm',
+                          content: 'x ${widget.booking?.soDem}'),
                       const SizedBox(height: 10),
                       InfoBox(
                           title: 'Tổng số tiền',
-                          content: '${widget.arg.totalMoney} đ'),
+                          content: '${widget.booking?.thanhTien} đ'),
                     ],
                   ),
                 ),
-                const SizedBox(height: 16),
+                const SizedBox(height: 8),
+                Container(
+                    padding: const EdgeInsets.all(16),
+                    color: AppColors.white,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text('Cập nhật trạng thái',
+                            style: tStyle.BaseBoldBlack()),
+                        Row(
+                          children: [
+                            Expanded(
+                              flex: 1,
+                              child: RadioListTile(
+                                value: 0,
+                                groupValue: statusCode,
+                                title: const Text('Chấp nhận'),
+                                onChanged: (value) {
+                                  setState(() {
+                                    statusCode = value;
+                                  });
+                                },
+                              ),
+                            ),
+                            Expanded(
+                              flex: 1,
+                              child: RadioListTile(
+                                value: 1,
+                                groupValue: statusCode,
+                                title: const Text('Từ chối'),
+                                onChanged: (value) {
+                                  setState(() {
+                                    statusCode = value;
+                                  });
+                                },
+                              ),
+                            )
+                          ],
+                        ),
+                        Text('Lý do từ chối', style: tStyle.BaseBoldBlack()),
+                      ],
+                    )),
+                if (statusCode != 0 || statusCode != 1)
+                  Container(
+                    margin: const EdgeInsets.all(16),
+                    child: ButtonPrimary(
+                      text: 'Cập nhật',
+                      onTap: statusCode == 0 || statusCode == 1
+                          ? onTapNull
+                          : onTapUpdateStatus,
+                    ),
+                  ),
               ],
             ),
           ),
@@ -212,4 +241,10 @@ class _DetailPaymentState extends State<DetailPayment> {
   void onTapBack() {
     Navigator.pop(context);
   }
+
+  void onTapUpdateStatus() {
+    print('có dữ liệu');
+  }
+
+  void onTapNull() {}
 }

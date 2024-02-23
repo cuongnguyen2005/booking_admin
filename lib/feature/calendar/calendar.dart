@@ -74,7 +74,7 @@ class _CalendarWidgetState extends State<CalendarWidget> {
                       if (element.trangThai == 2) {
                         context.read<CalendarBloc>().status = 'Đang xử lý';
                       } else if (element.trangThai == 1) {
-                        context.read<CalendarBloc>().status = 'Từ chối';
+                        context.read<CalendarBloc>().status = ' Đã từ chối';
                       } else if (element.trangThai == 0) {
                         context.read<CalendarBloc>().status = 'Thành công';
                       }
@@ -111,12 +111,17 @@ class _CalendarWidgetState extends State<CalendarWidget> {
                                       borderRadius: BorderRadius.circular(16),
                                       color: bookingList[index].trangThai == 2
                                           ? AppColors.yellow.withOpacity(0.2)
-                                          : AppColors.green.withOpacity(0.2),
+                                          : bookingList[index].trangThai == 1
+                                              ? AppColors.red.withOpacity(0.2)
+                                              : AppColors.green
+                                                  .withOpacity(0.2),
                                     ),
                                     child: Text(statusList[index],
                                         style: bookingList[index].trangThai == 2
                                             ? tStyle.BaseRegularYellow()
-                                            : tStyle.BaseRegularGreen()),
+                                            : bookingList[index].trangThai == 1
+                                                ? tStyle.BaseRegularRed()
+                                                : tStyle.BaseRegularGreen()),
                                   ),
                                   const SizedBox(height: 10),
                                   Container(
@@ -155,31 +160,14 @@ class _CalendarWidgetState extends State<CalendarWidget> {
                 ),
               );
             },
-          )
+          ),
         ],
       ),
     );
   }
 
   void onTapDetailPayment(index, bookingList) {
-    Navigator.pushNamed(
-      context,
-      DetailPayment.routeName,
-      arguments: DetailPaymentArg(
-        nameHotel: bookingList[index].tenKS,
-        giaPhong: bookingList[index].giaKS,
-        name: bookingList[index].hoTen,
-        email: bookingList[index].email,
-        phoneNumber: bookingList[index].sdt,
-        startDate: bookingList[index].ngayNhan,
-        endDate: bookingList[index].ngayTra,
-        people: bookingList[index].soNguoi,
-        roomType: bookingList[index].roomType,
-        room: bookingList[index].soPhong,
-        night: bookingList[index].soDem,
-        totalMoney: bookingList[index].thanhTien,
-        trangThai: bookingList[index].trangThai,
-      ),
-    );
+    Navigator.pushNamed(context, DetailPayment.routeName,
+        arguments: bookingList[index]);
   }
 }

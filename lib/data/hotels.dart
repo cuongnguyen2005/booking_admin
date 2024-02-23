@@ -9,9 +9,6 @@ class Hotels {
   String maDiaDiem;
   int giaKS;
   String anhKS;
-  String roomType;
-  String congTy;
-  String maCongTy;
   String maNV;
   String moTa;
   Hotels({
@@ -22,9 +19,6 @@ class Hotels {
     required this.maDiaDiem,
     required this.giaKS,
     required this.anhKS,
-    required this.roomType,
-    required this.congTy,
-    required this.maCongTy,
     required this.maNV,
     required this.moTa,
   });
@@ -38,9 +32,6 @@ class Hotels {
       'maDiaDiem': maDiaDiem,
       'gia': giaKS,
       'anhKS': anhKS,
-      'roomType': roomType,
-      'congTy': congTy,
-      'maCongTy': maCongTy,
       'maNV': maNV,
       'moTa': moTa,
     };
@@ -55,9 +46,6 @@ class Hotels {
       maDiaDiem: map['maDiaDiem'] as String,
       giaKS: map['gia'] as int,
       anhKS: map['anhKS'] as String,
-      roomType: map['roomType'] as String,
-      congTy: map['congTy'] as String,
-      maCongTy: map['maCongTy'] as String,
       maNV: map['maNV'] as String,
       moTa: map['moTa'] as String,
     );

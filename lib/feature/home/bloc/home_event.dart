@@ -1,3 +1,3 @@
 class HomeEvent {}
 
-class HomeGetHotelsList extends HomeEvent {}
+class HomeGetHotelsEvent extends HomeEvent {}

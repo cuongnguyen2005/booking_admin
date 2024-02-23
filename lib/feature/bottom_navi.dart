@@ -1,8 +1,7 @@
-import 'package:booking_admin/feature/add_hotel.dart';
 import 'package:booking_admin/feature/calendar/bloc/calendar_bloc.dart';
 import 'package:booking_admin/feature/calendar/calendar.dart';
+import 'package:booking_admin/feature/home/bloc/home_bloc.dart';
 import 'package:booking_admin/feature/home/home.dart';
-import 'package:booking_admin/feature/user/home/bloc/home_bloc.dart';
 import 'package:booking_admin/feature/setting/settings.dart';
 import 'package:booking_admin/source/colors.dart';
 import 'package:flutter/material.dart';
@@ -36,11 +35,11 @@ class _BottomNaviState extends State<BottomNavi> {
         create: (context) => HomeBloc(),
         child: const HomePage(),
       ),
-      const AddHotel(),
       BlocProvider(
         create: (context) => CalendarBloc(),
         child: const CalendarWidget(),
       ),
+      const HomePage(),
       const Settings(),
     ];
     return Scaffold(
@@ -69,12 +68,12 @@ class _BottomNaviState extends State<BottomNavi> {
                 text: 'Trang chủ',
               ),
               GButton(
-                icon: Icons.notes,
-                text: 'Thêm mới',
-              ),
-              GButton(
                 icon: Icons.calendar_month,
                 text: 'Lịch trình',
+              ),
+              GButton(
+                icon: Icons.circle,
+                text: 'Thống kê',
               ),
               GButton(
                 icon: Icons.person,

@@ -8,9 +8,11 @@ class ButtonIconWidget extends StatelessWidget {
     Key? key,
     this.onTap,
     required this.icon,
+    this.color,
   }) : super(key: key);
   final void Function()? onTap;
   final IconData icon;
+  final Color? color;
 
   @override
   Widget build(BuildContext context) {
@@ -25,6 +27,7 @@ class ButtonIconWidget extends StatelessWidget {
         child: Icon(
           icon,
           size: 22,
+          color: color,
         ),
       ),
     );

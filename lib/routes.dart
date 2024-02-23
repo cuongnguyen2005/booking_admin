@@ -1,14 +1,19 @@
+import 'package:booking_admin/data/booking.dart';
 import 'package:booking_admin/data/hotels.dart';
-import 'package:booking_admin/feature/add_hotel.dart';
+import 'package:booking_admin/feature/manage/add_room.dart';
 import 'package:booking_admin/feature/bottom_navi.dart';
 import 'package:booking_admin/feature/detail_payment.dart';
 import 'package:booking_admin/feature/login/bloc/login_bloc.dart';
 import 'package:booking_admin/feature/login/login.dart';
+import 'package:booking_admin/feature/manage/add_hotel.dart';
+import 'package:booking_admin/feature/manage/room/manage_room.dart';
 import 'package:booking_admin/feature/setting/person_info.dart';
 import 'package:booking_admin/feature/signup/bloc/signup_bloc.dart';
 import 'package:booking_admin/feature/signup/signup.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+import 'feature/manage/room/bloc/room_bloc.dart';
 
 Route<dynamic>? Function(RouteSettings)? onGenerateRoute = (settings) {
   // if (settings.name == SplashScreen.routeName) {
@@ -32,21 +37,38 @@ Route<dynamic>? Function(RouteSettings)? onGenerateRoute = (settings) {
             ));
   }
   if (settings.name == DetailPayment.routeName) {
-    final arg = settings.arguments as DetailPaymentArg;
+    final arg = settings.arguments as Booking;
     return MaterialPageRoute(
         builder: (_) => DetailPayment(
-              arg: arg,
+              booking: arg,
             ));
   }
   if (settings.name == PersonInfo.routeName) {
     return MaterialPageRoute(builder: (_) => const PersonInfo());
   }
 
+  if (settings.name == AddRoom.routeName) {
+    final arg = settings.arguments as AddRoomArg;
+    return MaterialPageRoute(
+        builder: (_) => AddRoom(
+              arg: arg,
+            ));
+  }
   if (settings.name == AddHotel.routeName) {
     final arg = settings.arguments as Hotels;
     return MaterialPageRoute(
         builder: (_) => AddHotel(
               hotel: arg,
+            ));
+  }
+  if (settings.name == RoomManage.routeName) {
+    final arg = settings.arguments as Hotels;
+    return MaterialPageRoute(
+        builder: (_) => BlocProvider(
+              create: (context) => RoomBloc(),
+              child: RoomManage(
+                hotel: arg,
+              ),
             ));
   }
 

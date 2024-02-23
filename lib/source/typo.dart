@@ -106,6 +106,13 @@ extension TextStyle$ on TextStyle {
         color: AppColors.yellow,
         fontStyle: FontStyle.normal,
       );
+  TextStyle BaseRegularRed() => copyWith(
+        fontFamily: 'Roboto',
+        fontSize: 14,
+        fontWeight: FontWeight.w400,
+        color: AppColors.red,
+        fontStyle: FontStyle.normal,
+      );
   TextStyle BaseRegularGreen() => copyWith(
         fontFamily: 'Roboto',
         fontSize: 14,

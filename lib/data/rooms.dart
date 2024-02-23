@@ -1,0 +1,58 @@
+import 'dart:convert';
+
+// ignore_for_file: public_member_api_docs, sort_constructors_first
+class Rooms {
+  String idPhong;
+  String tenPhong;
+  String diaChi;
+  String thanhPho;
+  int giaPhong;
+  String kieuPhong;
+  String anhPhong;
+  String idKS;
+  String maNV;
+  Rooms({
+    required this.idPhong,
+    required this.tenPhong,
+    required this.diaChi,
+    required this.thanhPho,
+    required this.giaPhong,
+    required this.kieuPhong,
+    required this.anhPhong,
+    required this.idKS,
+    required this.maNV,
+  });
+
+  Map<String, dynamic> toMap() {
+    return <String, dynamic>{
+      'idPhong': idPhong,
+      'tenPhong': tenPhong,
+      'diaChi': diaChi,
+      'thanhPho': thanhPho,
+      'gia': giaPhong,
+      'kieuPhong': kieuPhong,
+      'anhKS': anhPhong,
+      'idKS': idKS,
+      'maNV': maNV,
+    };
+  }
+
+  factory Rooms.fromMap(Map<String, dynamic> map) {
+    return Rooms(
+      idPhong: map['idPhong'] as String,
+      tenPhong: map['tenPhong'] as String,
+      diaChi: map['diaChi'] as String,
+      thanhPho: map['thanhPho'] as String,
+      giaPhong: map['gia'] as int,
+      kieuPhong: map['kieuPhong'] as String,
+      anhPhong: map['anhKS'] as String,
+      idKS: map['idKS'] as String,
+      maNV: map['maNV'] as String,
+    );
+  }
+
+  String toJson() => json.encode(toMap());
+
+  factory Rooms.fromJson(String source) =>
+      Rooms.fromMap(json.decode(source) as Map<String, dynamic>);
+}

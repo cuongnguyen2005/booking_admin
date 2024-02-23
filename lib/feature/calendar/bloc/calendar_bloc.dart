@@ -13,12 +13,12 @@ class CalendarBloc extends Bloc<CalendarEvent, CalendarState> {
   CalendarBloc() : super(CalendarInitial()) {
     on<CalendarEvent>((event, emit) {});
     on<CalendarGetDataEvent>((event, emit) async {
-      List<Booking> listBookingApi = await BookingRepo.getBookingByUser();
+      List<Booking> listBookingApi =
+          await BookingRepo.getBookingByUser(user!.uid);
       List<Booking> curListBooking = [];
       for (var element in listBookingApi) {
         if (element.ngayNhan.month == today.month &&
-            element.ngayNhan.year == today.year &&
-            element.idUser == user!.uid) {
+            element.ngayNhan.year == today.year) {
           curListBooking.add(element);
         }
       }
