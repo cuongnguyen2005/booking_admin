@@ -1,6 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:booking_admin/components/btn/button_primary.dart';
 import 'package:booking_admin/data/booking.dart';
+import 'package:booking_admin/source/call_api/booking_api.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:booking_admin/components/box/info_box.dart';
@@ -83,11 +84,11 @@ class _DetailPaymentState extends State<DetailPayment> {
                       ),
                       const SizedBox(height: 16),
                       OrderForm(
-                        nameHotel: widget.booking!.tenKS,
+                        nameHotel: widget.booking!.tenPhong,
                         night: '${widget.booking?.soDem} đêm',
                         people: '${widget.booking?.soNguoi}  người',
                         roomType:
-                            '${widget.booking?.roomType}   x ${widget.booking?.roomType}',
+                            'Phòng ${widget.booking?.kieuPhong}   x ${widget.booking?.soPhong}',
                         checkin:
                             '${DateFormat.yMd().format(widget.booking!.ngayNhan)} (15:00 - 03:00)',
                         checkout:
@@ -162,7 +163,7 @@ class _DetailPaymentState extends State<DetailPayment> {
                       const SizedBox(height: 16),
                       InfoBox(
                           title: 'Giá phòng',
-                          content: '${widget.booking?.giaPhong} đ'),
+                          content: '${widget.booking?.giaKS} đ'),
                       const SizedBox(height: 10),
                       InfoBox(
                           title: 'Số phòng',
@@ -225,9 +226,7 @@ class _DetailPaymentState extends State<DetailPayment> {
                     margin: const EdgeInsets.all(16),
                     child: ButtonPrimary(
                       text: 'Cập nhật',
-                      onTap: statusCode == 0 || statusCode == 1
-                          ? onTapNull
-                          : onTapUpdateStatus,
+                      onTap: statusCode == 2 ? onTapUpdateStatus : onTapNull,
                     ),
                   ),
               ],
@@ -242,8 +241,27 @@ class _DetailPaymentState extends State<DetailPayment> {
     Navigator.pop(context);
   }
 
-  void onTapUpdateStatus() {
-    print('có dữ liệu');
+  void onTapUpdateStatus() async {
+    print('object');
+    await BookingRepo.editBooking(
+      widget.booking!.idBooking,
+      widget.booking!.idUser,
+      widget.booking!.hoTen,
+      widget.booking!.email,
+      widget.booking!.sdt,
+      widget.booking!.ngayNhan,
+      widget.booking!.ngayTra,
+      widget.booking!.soDem,
+      widget.booking!.soNguoi,
+      widget.booking!.soPhong,
+      widget.booking!.thanhTien,
+      widget.booking!.tenKS,
+      widget.booking!.tenPhong,
+      widget.booking!.giaKS,
+      widget.booking!.kieuPhong,
+      widget.booking!.maKS,
+      statusCode!,
+    );
   }
 
   void onTapNull() {}

@@ -271,7 +271,6 @@ class _AddHotelState extends State<AddHotel> {
             imageKS,
             adminAccount?.maCty ?? '',
             descriptionController.text,
-            convert(nameHotelController.text),
           );
           Navigator.pop(context);
         }
@@ -305,7 +304,6 @@ class _AddHotelState extends State<AddHotel> {
             imageKS,
             widget.hotel!.maKS,
             descriptionController.text,
-            convert(nameHotelController.text),
           );
 
           Navigator.of(context).pop();

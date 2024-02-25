@@ -33,6 +33,7 @@ class CalendarBloc extends Bloc<CalendarEvent, CalendarState> {
         }
       }
       emit(CalendarState(listBooking: curListBooking));
+      print(curListBooking.length);
     });
   }
 }

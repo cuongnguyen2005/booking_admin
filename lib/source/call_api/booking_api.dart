@@ -1,6 +1,7 @@
 import 'package:booking_admin/data/booking.dart';
 import 'package:booking_admin/data/favorite_hotel.dart';
 import 'package:booking_admin/data/hotels.dart';
+import 'package:booking_admin/data/notification.dart';
 import 'package:booking_admin/data/rooms.dart';
 import 'package:dio/dio.dart';
 
@@ -30,7 +31,6 @@ class BookingRepo {
     String anhKS,
     String maKS,
     String moTa,
-    String codeTenKS,
   ) async {
     final dio = Dio();
     String url =
@@ -45,7 +45,6 @@ class BookingRepo {
       anhKS: anhKS,
       maKS: maKS,
       moTa: moTa,
-      codeTenKS: codeTenKS,
     );
     final Response response = await dio.post(url, data: hotel.toMap());
     if (response.data != null) {
@@ -68,7 +67,6 @@ class BookingRepo {
     String anhKS,
     String maKS,
     String moTa,
-    String codeTenKS,
   ) async {
     final dio = Dio();
     String url =
@@ -83,7 +81,6 @@ class BookingRepo {
       anhKS: anhKS,
       maKS: maKS,
       moTa: moTa,
-      codeTenKS: codeTenKS,
     );
     dio.patch(url, data: hotel.toMap());
     return [];
@@ -92,7 +89,7 @@ class BookingRepo {
   //delete hotel
   static Future<List<Hotels>> deleteHotel(String key) async {
     final dio = Dio();
-    final Response response = await dio.delete(
+    await dio.delete(
         'https://booking-9cf26-default-rtdb.firebaseio.com/Hotels/$key.json');
     return [];
   }
@@ -178,56 +175,8 @@ class BookingRepo {
   //delete phong
   static Future<List<Rooms>> deleteRooms(String key) async {
     final dio = Dio();
-    final Response response = await dio.delete(
+    await dio.delete(
         'https://booking-9cf26-default-rtdb.firebaseio.com/Rooms/$key.json');
-    return [];
-  }
-
-  //save booking
-  static Future<List<Booking>> bookingHotel(
-    String uid,
-    String hoTen,
-    String email,
-    String sdt,
-    DateTime ngayNhan,
-    DateTime ngayTra,
-    int soDem,
-    int soNguoi,
-    int soPhong,
-    int thanhTien,
-    String idKS,
-    String tenKS,
-    int giaPhong,
-    String roomType,
-  ) async {
-    final dio = Dio();
-    String url =
-        'https://booking-9cf26-default-rtdb.firebaseio.com/TotalBookingHotel.json';
-    Booking bookingHotel = Booking(
-      idBooking: '',
-      idUser: uid,
-      hoTen: hoTen,
-      email: email,
-      sdt: sdt,
-      ngayNhan: ngayNhan,
-      ngayTra: ngayTra,
-      soDem: soDem,
-      soNguoi: soNguoi,
-      soPhong: soPhong,
-      thanhTien: thanhTien,
-      maKS: idKS,
-      tenKS: tenKS,
-      giaPhong: giaPhong,
-      roomType: roomType,
-      trangThai: 2, // 2: chờ xử lý, 1: từ chối, 0: hoàn thành
-    );
-    final Response response = await dio.post(url, data: bookingHotel.toMap());
-    if (response.data != null) {
-      String id = response.data['name'];
-      String url1 =
-          'https://booking-9cf26-default-rtdb.firebaseio.com/TotalBookingHotel/$id.json';
-      await dio.patch(url1, data: {'idBooking': id});
-    }
     return [];
   }
 
@@ -249,12 +198,47 @@ class BookingRepo {
 
   //Xu ly don dat phong
   static Future<List<Booking>> editBooking(
-      String idBooking, int trangThai) async {
+    String key,
+    String idUser,
+    String hoTen,
+    String email,
+    String sdt,
+    DateTime ngayNhan,
+    DateTime ngayTra,
+    int soDem,
+    int soNguoi,
+    int soPhong,
+    int thanhTien,
+    String tenKS,
+    String tenPhong,
+    int giaKS,
+    String kieuPhong,
+    String maKS,
+    int trangThai,
+  ) async {
     final dio = Dio();
-
-    final Response response = await dio.patch(
-        'https://booking-9cf26-default-rtdb.firebaseio.com/TotalBookingHotel/$idBooking.json',
-        data: {'trangThai': trangThai});
+    String url =
+        'https://booking-9cf26-default-rtdb.firebaseio.com/TotalBookingHotel/$key.json';
+    Booking bookingHotel = Booking(
+      idBooking: key,
+      idUser: idUser,
+      hoTen: hoTen,
+      email: email,
+      sdt: sdt,
+      ngayNhan: ngayNhan,
+      ngayTra: ngayTra,
+      soDem: soDem,
+      soNguoi: soNguoi,
+      soPhong: soPhong,
+      thanhTien: thanhTien,
+      tenKS: tenKS,
+      tenPhong: tenPhong,
+      giaKS: giaKS,
+      kieuPhong: kieuPhong,
+      maKS: maKS,
+      trangThai: trangThai,
+    );
+    await dio.patch(url, data: bookingHotel.toMap());
     return [];
   }
 
@@ -288,17 +272,16 @@ class BookingRepo {
     return [];
   }
 
-  //get favorite hotel by user
-  static Future<List<FavoriteHotel>> getFavoriteHotelByUser(String uid) async {
+  //get notification
+  static Future<List<NotificationClass>> getNotifi() async {
     final dio = Dio();
     final Response response = await dio.get(
-        'https://booking-9cf26-default-rtdb.firebaseio.com/FavoriteHotelByUser/$uid.json');
-
+        'https://booking-9cf26-default-rtdb.firebaseio.com/Notifications.json');
     if (response.data != null) {
       Map<String, dynamic> json = response.data;
-      final List<FavoriteHotel> favoriteHotel =
-          json.values.map((e) => FavoriteHotel.fromMap(e)).toList();
-      return favoriteHotel;
+      final List<NotificationClass> notifiList =
+          json.values.map((e) => NotificationClass.fromMap(e)).toList();
+      return notifiList;
     } else {
       return [];
     }

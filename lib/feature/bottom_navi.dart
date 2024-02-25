@@ -2,6 +2,7 @@ import 'package:booking_admin/feature/calendar/bloc/calendar_bloc.dart';
 import 'package:booking_admin/feature/calendar/calendar.dart';
 import 'package:booking_admin/feature/home/bloc/home_bloc.dart';
 import 'package:booking_admin/feature/home/home.dart';
+import 'package:booking_admin/feature/notification_page.dart';
 import 'package:booking_admin/feature/setting/settings.dart';
 import 'package:booking_admin/source/colors.dart';
 import 'package:flutter/material.dart';
@@ -39,7 +40,7 @@ class _BottomNaviState extends State<BottomNavi> {
         create: (context) => CalendarBloc(),
         child: const CalendarWidget(),
       ),
-      const HomePage(),
+      const NotificationPage(),
       const Settings(),
     ];
     return Scaffold(
@@ -72,8 +73,8 @@ class _BottomNaviState extends State<BottomNavi> {
                 text: 'Lịch trình',
               ),
               GButton(
-                icon: Icons.circle,
-                text: 'Thống kê',
+                icon: Icons.notifications,
+                text: 'Thông báo',
               ),
               GButton(
                 icon: Icons.person,

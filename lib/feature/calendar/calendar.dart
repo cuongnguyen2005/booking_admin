@@ -9,7 +9,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:table_calendar/table_calendar.dart';
-
 import 'bloc/calendar_state.dart';
 
 class CalendarWidget extends StatefulWidget {
@@ -135,7 +134,7 @@ class _CalendarWidgetState extends State<CalendarWidget> {
                                       children: [
                                         const Icon(Icons.home),
                                         const SizedBox(width: 10),
-                                        Text(bookingList[index].tenKS,
+                                        Text(bookingList[index].tenPhong,
                                             style: tStyle.BaseBoldBlack()),
                                       ],
                                     ),
@@ -168,6 +167,7 @@ class _CalendarWidgetState extends State<CalendarWidget> {
 
   void onTapDetailPayment(index, bookingList) {
     Navigator.pushNamed(context, DetailPayment.routeName,
-        arguments: bookingList[index]);
+            arguments: bookingList[index])
+        .then((value) => getBookingList());
   }
 }

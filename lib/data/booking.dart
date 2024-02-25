@@ -13,10 +13,11 @@ class Booking {
   int soNguoi;
   int soPhong;
   int thanhTien;
-  String maKS;
   String tenKS;
-  int giaPhong;
-  String roomType;
+  String tenPhong;
+  int giaKS;
+  String kieuPhong;
+  String maKS;
   int trangThai;
   Booking({
     required this.idBooking,
@@ -30,10 +31,11 @@ class Booking {
     required this.soNguoi,
     required this.soPhong,
     required this.thanhTien,
-    required this.maKS,
     required this.tenKS,
-    required this.giaPhong,
-    required this.roomType,
+    required this.tenPhong,
+    required this.giaKS,
+    required this.kieuPhong,
+    required this.maKS,
     required this.trangThai,
   });
 
@@ -50,10 +52,11 @@ class Booking {
       'soNguoi': soNguoi,
       'soPhong': soPhong,
       'thanhTien': thanhTien,
+      'idKS': tenKS,
+      'tenKS': tenPhong,
+      'giaPhong': giaKS,
+      'kieuPhong': kieuPhong,
       'maKS': maKS,
-      'tenKS': tenKS,
-      'giaPhong': giaPhong,
-      'roomType': roomType,
       'trangThai': trangThai,
     };
   }
@@ -71,10 +74,11 @@ class Booking {
       soNguoi: map['soNguoi'] as int,
       soPhong: map['soPhong'] as int,
       thanhTien: map['thanhTien'] as int,
+      tenKS: map['idKS'] as String,
+      tenPhong: map['tenKS'] as String,
+      giaKS: map['giaPhong'] as int,
+      kieuPhong: map['kieuPhong'] as String,
       maKS: map['maKS'] as String,
-      tenKS: map['tenKS'] as String,
-      giaPhong: map['giaPhong'] as int,
-      roomType: map['roomType'] as String,
       trangThai: map['trangThai'] as int,
     );
   }

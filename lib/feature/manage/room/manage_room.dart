@@ -130,6 +130,14 @@ class _RoomManageState extends State<RoomManage> {
                                         style: tStyle.SmallRegular()),
                                     const SizedBox(height: 8),
                                     Row(
+                                      children: [
+                                        const Icon(Icons.bed,size: 20,color: AppColors.primary,),
+                                        Text(' Phòng ${roomsList[index].kieuPhong}',
+                                            style: tStyle.BaseRegularBlack()),
+                                      ],
+                                    ),
+                                    const SizedBox(height: 8),
+                                    Row(
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceBetween,
                                       children: [

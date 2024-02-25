@@ -11,7 +11,6 @@ class Hotels {
   String anhKS;
   String maKS;
   String moTa;
-  String codeTenKS;
   Hotels({
     required this.idKS,
     required this.tenKS,
@@ -22,7 +21,6 @@ class Hotels {
     required this.anhKS,
     required this.maKS,
     required this.moTa,
-    required this.codeTenKS,
   });
 
   Map<String, dynamic> toMap() {
@@ -36,7 +34,6 @@ class Hotels {
       'anhKS': anhKS,
       'maKS': maKS,
       'moTa': moTa,
-      'codeTenKS': codeTenKS,
     };
   }
 
@@ -51,7 +48,6 @@ class Hotels {
       anhKS: map['anhKS'] as String,
       maKS: map['maKS'] as String,
       moTa: map['moTa'] as String,
-      codeTenKS: map['codeTenKS'] as String,
     );
   }
 
