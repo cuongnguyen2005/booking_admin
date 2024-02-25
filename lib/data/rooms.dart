@@ -10,7 +10,7 @@ class Rooms {
   String kieuPhong;
   String anhPhong;
   String idKS;
-  String maNV;
+  String maKS;
   Rooms({
     required this.idPhong,
     required this.tenPhong,
@@ -20,7 +20,7 @@ class Rooms {
     required this.kieuPhong,
     required this.anhPhong,
     required this.idKS,
-    required this.maNV,
+    required this.maKS,
   });
 
   Map<String, dynamic> toMap() {
@@ -33,7 +33,7 @@ class Rooms {
       'kieuPhong': kieuPhong,
       'anhKS': anhPhong,
       'idKS': idKS,
-      'maNV': maNV,
+      'maKS': maKS,
     };
   }
 
@@ -47,7 +47,7 @@ class Rooms {
       kieuPhong: map['kieuPhong'] as String,
       anhPhong: map['anhKS'] as String,
       idKS: map['idKS'] as String,
-      maNV: map['maNV'] as String,
+      maKS: map['maKS'] as String,
     );
   }
 

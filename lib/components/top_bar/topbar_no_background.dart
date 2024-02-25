@@ -13,11 +13,13 @@ class TopBarNoBackground extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final Size size = MediaQuery.of(context).size;
     return Container(
       decoration: const BoxDecoration(
         color: Colors.transparent,
       ),
-      padding: const EdgeInsets.only(left: 16, right: 16, bottom: 16, top: 50),
+      padding: EdgeInsets.only(
+          left: 16, right: 16, bottom: 16, top: size.height * 0.08),
       child: Row(
         children: [
           InkWell(

@@ -13,7 +13,7 @@ class Booking {
   int soNguoi;
   int soPhong;
   int thanhTien;
-  String idKS;
+  String maKS;
   String tenKS;
   int giaPhong;
   String roomType;
@@ -30,7 +30,7 @@ class Booking {
     required this.soNguoi,
     required this.soPhong,
     required this.thanhTien,
-    required this.idKS,
+    required this.maKS,
     required this.tenKS,
     required this.giaPhong,
     required this.roomType,
@@ -50,7 +50,7 @@ class Booking {
       'soNguoi': soNguoi,
       'soPhong': soPhong,
       'thanhTien': thanhTien,
-      'idKS': idKS,
+      'maKS': maKS,
       'tenKS': tenKS,
       'giaPhong': giaPhong,
       'roomType': roomType,
@@ -71,7 +71,7 @@ class Booking {
       soNguoi: map['soNguoi'] as int,
       soPhong: map['soPhong'] as int,
       thanhTien: map['thanhTien'] as int,
-      idKS: map['idKS'] as String,
+      maKS: map['maKS'] as String,
       tenKS: map['tenKS'] as String,
       giaPhong: map['giaPhong'] as int,
       roomType: map['roomType'] as String,

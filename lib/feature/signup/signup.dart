@@ -103,6 +103,17 @@ class _SignupPageState extends State<SignupPage> {
                             ),
                             const SizedBox(height: 16),
                             InputDefault(
+                              hintText: 'Nhập mã công ty',
+                              obscureText: false,
+                              validator: ValidateUntils.validateName,
+                              autovalidateMode:
+                                  AutovalidateMode.onUserInteraction,
+                              controller: context
+                                  .read<SignupBloc>()
+                                  .maCtyController,
+                            ),
+                            const SizedBox(height: 16),
+                            InputDefault(
                               hintText: 'Nhập email',
                               obscureText: false,
                               validator: ValidateUntils.validateEmail,

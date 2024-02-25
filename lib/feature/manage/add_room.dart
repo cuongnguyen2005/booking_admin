@@ -1,10 +1,9 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'dart:convert';
-import 'dart:typed_data';
+import 'dart:io';
 import 'package:booking_admin/data/rooms.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:booking_admin/components/btn/button_primary.dart';
 import 'package:booking_admin/components/select_widget/radio_select.dart';
@@ -40,50 +39,44 @@ class AddRoom extends StatefulWidget {
 class _AddRoomState extends State<AddRoom> {
   @override
   void initState() {
-    print(widget.arg.hotelBase?.idKS ?? '');
     super.initState();
-    widget.arg.room == null
-        ? getImage()
-        : image = widget.arg.room?.anhPhong ?? '';
+    imageRoom = widget.arg.room?.anhPhong ?? '';
     nameHotelController.text = widget.arg.room?.tenPhong ?? '';
     roomType = widget.arg.room?.kieuPhong ?? '';
-    // priceController.text = (widget.hotel?.giaKS ?? 0).toString();
-    // descriptionController.text = widget.arg.hotel?. ?? '';
     priceController.text = (widget.arg.room?.giaPhong ?? 0).toString();
   }
 
   User? user = FirebaseAuth.instance.currentUser;
+  String imageUrl = '';
 
+  //chọn ảnh
   Future<void> pickImage() async {
+    final XFile? pickedFile = await ImagePicker().pickImage(
+      source: ImageSource.gallery,
+      imageQuality: 100,
+    );
+    String fileName = '${user!.uid} ${DateTime.now().toString()}';
+    if (pickedFile == null) {
+      return;
+    }
+    Reference referenceRoot = FirebaseStorage.instance.ref();
+    Reference referenceDirectImage = referenceRoot.child('hotels');
+    Reference referenceUpload = referenceDirectImage.child(fileName);
     try {
-      final XFile? pickedFile = await ImagePicker().pickImage(
-        source: ImageSource.gallery,
-        imageQuality: 100,
-      );
-      if (pickedFile != null) {
-        //pick image
-        List<int> imageBytes = await pickedFile.readAsBytes();
-        String base64Image = base64.encode(imageBytes);
-        setState(() {
-          image = base64Image;
-        });
-      }
-    } catch (e) {}
-  }
-
-  void getImage() async {
-    ByteData bytes = await rootBundle.load('assets/images/avatar_white.jpg');
-    final ByteBuffer buffer = bytes.buffer;
-    setState(() {
-      image = base64.encode(Uint8List.view(buffer));
-    });
+      await referenceUpload.putFile(File(pickedFile.path));
+      imageUrl = await referenceUpload.getDownloadURL();
+      setState(() {
+        imageRoom = imageUrl;
+      });
+    } catch (e) {
+      //some error
+    }
   }
 
   String roomType = 'đơn';
-  String image = '';
+  String imageRoom = '';
   final TextEditingController nameHotelController = TextEditingController();
   final TextEditingController priceController = TextEditingController();
-  // final TextEditingController descriptionController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -104,12 +97,19 @@ class _AddRoomState extends State<AddRoom> {
                   child: Column(
                     children: [
                       Stack(children: [
-                        Image.memory(
-                          base64.decode(image),
-                          width: double.infinity,
-                          height: 250,
-                          fit: BoxFit.cover,
-                        ),
+                        imageRoom == ''
+                            ? Container(
+                                height: 250,
+                                color: AppColors.grey.withOpacity(0.5),
+                              )
+                            : SizedBox(
+                                width: double.infinity,
+                                height: 250,
+                                child: Image.network(
+                                  imageRoom,
+                                  fit: BoxFit.fill,
+                                ),
+                              ),
                         InkWell(
                           onTap: pickImage,
                           child: Container(
@@ -177,7 +177,8 @@ class _AddRoomState extends State<AddRoom> {
                   padding: const EdgeInsets.all(16),
                   child: ButtonPrimary(
                     text: widget.arg.room == null ? 'Thêm' : 'Sửa',
-                    onTap: onTapAddRoom,
+                    onTap:
+                        widget.arg.room == null ? onTapAddRoom : onTapEditRoom,
                   ),
                 ),
                 const SizedBox(height: 8),
@@ -212,14 +213,44 @@ class _AddRoomState extends State<AddRoom> {
         widget.arg.hotelBase?.thanhPho ?? '',
         int.parse(priceController.text),
         roomType,
-        image,
+        imageRoom,
         widget.arg.hotelBase?.idKS ?? '',
-        widget.arg.hotelBase?.maNV ?? '',
+        widget.arg.hotelBase?.maKS ?? '',
       );
+      // ignore: use_build_context_synchronously
       Navigator.pop(context);
       nameHotelController.clear();
       priceController.clear();
-      image = '';
+      imageRoom = '';
+    }
+  }
+
+  void onTapEditRoom() async {
+    if (user != null) {
+      showDialog(
+        context: context,
+        builder: (context) {
+          return const AlertDialog(
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(Radius.circular(16))),
+            title: Icon(Icons.check_circle, size: 50, color: AppColors.primary),
+            content: Text('Thành công', textAlign: TextAlign.center),
+          );
+        },
+      );
+      await BookingRepo.editRooms(
+        widget.arg.room?.idPhong ?? '',
+        nameHotelController.text,
+        widget.arg.room?.diaChi ?? '',
+        widget.arg.room?.thanhPho ?? '',
+        int.parse(priceController.text),
+        roomType,
+        imageRoom,
+        widget.arg.room?.idKS ?? '',
+        widget.arg.room?.maKS ?? '',
+      );
+      // ignore: use_build_context_synchronously
+      Navigator.pop(context);
     }
   }
 }

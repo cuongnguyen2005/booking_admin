@@ -1,5 +1,4 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'dart:convert';
 import 'package:booking_admin/components/dialog/dialog_primary.dart';
 import 'package:booking_admin/data/hotels.dart';
 import 'package:booking_admin/feature/manage/add_hotel.dart';
@@ -9,7 +8,6 @@ import 'package:booking_admin/source/colors.dart';
 import 'package:booking_admin/source/typo.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import '../../components/btn/button_icon.dart';
 import 'bloc/home_bloc.dart';
 import 'bloc/home_event.dart';
@@ -116,12 +114,18 @@ class _HomePageState extends State<HomePage> {
                                       topLeft: Radius.circular(12),
                                       topRight: Radius.circular(12),
                                     ),
-                                    child: Image.memory(
-                                      base64.decode(hotelList[index].anhKS),
-                                      height: 250,
-                                      width: double.infinity,
-                                      fit: BoxFit.cover,
-                                    ),
+                                    child: hotelList[index].anhKS == ''
+                                        ?  Container(
+                                            height: 250,
+                                            width: double.infinity,
+                                            color: AppColors.grey.withOpacity(0.5),
+                                          )
+                                        : Image.network(
+                                            hotelList[index].anhKS,
+                                            height: 250,
+                                            width: double.infinity,
+                                            fit: BoxFit.cover,
+                                          ),
                                   ),
                                   Container(
                                     width: double.infinity,
@@ -222,7 +226,8 @@ class _HomePageState extends State<HomePage> {
   }
 
   void onTapAddHotel() {
-    Navigator.pushNamed(context, AddHotel.routeName);
+    Navigator.pushNamed(context, AddHotel.routeName)
+        .then((value) => getHotelList());
   }
 
   void onTapMoveManageRoom(index, hotelList) {
@@ -240,7 +245,7 @@ class _HomePageState extends State<HomePage> {
           onTap: () async {
             await BookingRepo.deleteHotel(key);
             onTapBack();
-            // getListHotel();
+            getHotelList();
           },
         );
       },
@@ -249,6 +254,7 @@ class _HomePageState extends State<HomePage> {
 
   void onTapEditHotel(hotelList, index) {
     Navigator.pushNamed(context, AddHotel.routeName,
-        arguments: hotelList[index]);
+            arguments: hotelList[index])
+        .then((value) => getHotelList());
   }
 }

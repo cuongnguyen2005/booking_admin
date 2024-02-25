@@ -1,5 +1,4 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'dart:convert';
 import 'package:booking_admin/data/rooms.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -87,12 +86,18 @@ class _RoomManageState extends State<RoomManage> {
                                   topLeft: Radius.circular(12),
                                   topRight: Radius.circular(12),
                                 ),
-                                child: Image.memory(
-                                  base64.decode(roomsList[index].anhPhong),
-                                  height: 250,
-                                  width: double.infinity,
-                                  fit: BoxFit.cover,
-                                ),
+                                child: roomsList[index].anhPhong == ''
+                                    ? Container(
+                                        height: 250,
+                                        width: double.infinity,
+                                        color: AppColors.grey.withOpacity(0.5),
+                                      )
+                                    : Image.network(
+                                        roomsList[index].anhPhong,
+                                        height: 250,
+                                        width: double.infinity,
+                                        fit: BoxFit.cover,
+                                      ),
                               ),
                               Container(
                                 width: double.infinity,
@@ -178,12 +183,14 @@ class _RoomManageState extends State<RoomManage> {
 
   void onTapAddRoom() {
     Navigator.pushNamed(context, AddRoom.routeName,
-        arguments: AddRoomArg(hotelBase: widget.hotel));
+            arguments: AddRoomArg(hotelBase: widget.hotel))
+        .then((value) => getListRoom());
   }
 
   void onTapEditRoom(index, roomsList) {
     Navigator.pushNamed(context, AddRoom.routeName,
-        arguments: AddRoomArg(room: roomsList[index]));
+            arguments: AddRoomArg(room: roomsList[index]))
+        .then((value) => getListRoom());
   }
 
   void getListRoom() {

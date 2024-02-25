@@ -1,11 +1,12 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'dart:convert';
-import 'dart:typed_data';
+import 'dart:io';
 import 'package:booking_admin/components/top_bar/topbar_default.dart';
+import 'package:booking_admin/data/admin_account.dart';
 import 'package:booking_admin/source/utils/validate_util.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:booking_admin/components/btn/button_primary.dart';
 import 'package:booking_admin/components/select_widget/dropdown_select.dart';
@@ -32,7 +33,8 @@ class _AddHotelState extends State<AddHotel> {
   @override
   void initState() {
     super.initState();
-    widget.hotel == null ? getImage() : image = widget.hotel?.anhKS ?? '';
+    getInfoUser();
+    imageKS = widget.hotel?.anhKS ?? '';
     nameHotelController.text = widget.hotel?.tenKS ?? '';
     addHotelController.text = widget.hotel?.diaChi ?? '';
     city = widget.hotel?.thanhPho ?? '';
@@ -42,37 +44,67 @@ class _AddHotelState extends State<AddHotel> {
   }
 
   User? user = FirebaseAuth.instance.currentUser;
-
-  //chọn ảnh
-  Future<void> pickImage() async {
-    try {
-      final XFile? pickedFile = await ImagePicker().pickImage(
-        source: ImageSource.gallery,
-        imageQuality: 100,
-      );
-      if (pickedFile != null) {
-        //pick image
-        List<int> imageBytes = await pickedFile.readAsBytes();
-        String base64Image = base64.encode(imageBytes);
-        setState(() {
-          image = base64Image;
-        });
-      }
-    } catch (e) {}
+  AdminAccount? adminAccount;
+  void getInfoUser() async {
+    FirebaseFirestore.instance
+        .collection('admins')
+        .doc(user?.uid)
+        .get()
+        .then((value) {
+      setState(() {
+        adminAccount = AdminAccount.fromMap(value.data());
+      });
+    });
   }
 
-  void getImage() async {
-    ByteData bytes = await rootBundle.load('assets/images/avatar_white.jpg');
-    final ByteBuffer buffer = bytes.buffer;
-    setState(() {
-      image = base64.encode(Uint8List.view(buffer));
-    });
+  //chọn ảnh\
+  String imageUrl = '';
+  Future<void> pickImage() async {
+    final XFile? pickedFile = await ImagePicker().pickImage(
+      source: ImageSource.gallery,
+      imageQuality: 100,
+    );
+    String fileName = '${user!.uid} ${DateTime.now().toString()}';
+    if (pickedFile == null) {
+      return;
+    }
+    Reference referenceRoot = FirebaseStorage.instance.ref();
+    Reference referenceDirectImage = referenceRoot.child('hotels');
+    Reference referenceUpload = referenceDirectImage.child(fileName);
+    try {
+      await referenceUpload.putFile(File(pickedFile.path));
+      imageUrl = await referenceUpload.getDownloadURL();
+      setState(() {
+        imageKS = imageUrl;
+      });
+    } catch (e) {
+      //some error
+    }
+  }
+
+  static String convert(String str) {
+    str = str.replaceAll("à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ", "a");
+    str = str.replaceAll("è|é|ẹ|ẻ|ẽ|ê|ề|ế|ệ|ể|ễ", "e");
+    str = str.replaceAll("ì|í|ị|ỉ|ĩ", "i");
+    str = str.replaceAll("ò|ó|ọ|ỏ|õ|ô|ồ|ố|ộ|ổ|ỗ|ơ|ờ|ớ|ợ|ở|ỡ", "o");
+    str = str.replaceAll("ù|ú|ụ|ủ|ũ|ư|ừ|ứ|ự|ử|ữ", "u");
+    str = str.replaceAll("ỳ|ý|ỵ|ỷ|ỹ", "y");
+    str = str.replaceAll("đ", "d");
+
+    str = str.replaceAll("À|Á|Ạ|Ả|Ã|Â|Ầ|Ấ|Ậ|Ẩ|Ẫ|Ă|Ằ|Ắ|Ặ|Ẳ|Ẵ", "A");
+    str = str.replaceAll("È|É|Ẹ|Ẻ|Ẽ|Ê|Ề|Ế|Ệ|Ể|Ễ", "E");
+    str = str.replaceAll("Ì|Í|Ị|Ỉ|Ĩ", "I");
+    str = str.replaceAll("Ò|Ó|Ọ|Ỏ|Õ|Ô|Ồ|Ố|Ộ|Ổ|Ỗ|Ơ|Ờ|Ớ|Ợ|Ở|Ỡ", "O");
+    str = str.replaceAll("Ù|Ú|Ụ|Ủ|Ũ|Ư|Ừ|Ứ|Ự|Ử|Ữ", "U");
+    str = str.replaceAll("Ỳ|Ý|Ỵ|Ỷ|Ỹ", "Y");
+    str = str.replaceAll("Đ", "D");
+    return str;
   }
 
   String? cityDropSelect;
   String city = '';
   String locationCode = '';
-  String image = '';
+  String imageKS = '';
   final TextEditingController nameHotelController = TextEditingController();
   final TextEditingController addHotelController = TextEditingController();
   final TextEditingController priceController = TextEditingController();
@@ -100,12 +132,19 @@ class _AddHotelState extends State<AddHotel> {
                     child: Column(
                       children: [
                         Stack(children: [
-                          Image.memory(
-                            base64.decode(image),
-                            width: double.infinity,
-                            height: 250,
-                            fit: BoxFit.cover,
-                          ),
+                          imageKS == ''
+                              ? Container(
+                                  height: 250,
+                                  color: AppColors.grey.withOpacity(0.5),
+                                )
+                              : SizedBox(
+                                  width: double.infinity,
+                                  height: 250,
+                                  child: Image.network(
+                                    imageKS,
+                                    fit: BoxFit.fill,
+                                  ),
+                                ),
                           InkWell(
                             onTap: pickImage,
                             child: Container(
@@ -113,7 +152,6 @@ class _AddHotelState extends State<AddHotel> {
                               width: 40,
                               decoration: const BoxDecoration(
                                 color: AppColors.primary,
-                                // borderRadius: BorderRadius.circular(20),
                               ),
                               child: const Icon(
                                 Icons.add,
@@ -191,7 +229,8 @@ class _AddHotelState extends State<AddHotel> {
                   padding: const EdgeInsets.all(16),
                   child: ButtonPrimary(
                     text: 'Cập nhật',
-                    onTap: onTapAddHotel,
+                    onTap:
+                        widget.hotel == null ? onTapAddHotel : onTapEditHotel,
                   ),
                 ),
                 const SizedBox(height: 8),
@@ -229,11 +268,47 @@ class _AddHotelState extends State<AddHotel> {
             city,
             locationCode,
             int.parse(priceController.text),
-            image,
-            user!.uid,
+            imageKS,
+            adminAccount?.maCty ?? '',
             descriptionController.text,
+            convert(nameHotelController.text),
           );
           Navigator.pop(context);
+        }
+      }
+    }
+  }
+
+  void onTapEditHotel() async {
+    if (formKey.currentState!.validate()) {
+      if (user != null) {
+        if (cityDropSelect != null) {
+          showDialog(
+            context: context,
+            builder: (context) {
+              return const AlertDialog(
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(16))),
+                title: Icon(Icons.check_circle,
+                    size: 50, color: AppColors.primary),
+                content: Text('Thành công', textAlign: TextAlign.center),
+              );
+            },
+          );
+          await BookingRepo.editHotels(
+            widget.hotel!.idKS,
+            nameHotelController.text,
+            addHotelController.text,
+            city,
+            locationCode,
+            int.parse(priceController.text),
+            imageKS,
+            widget.hotel!.maKS,
+            descriptionController.text,
+            convert(nameHotelController.text),
+          );
+
+          Navigator.of(context).pop();
         }
       }
     }

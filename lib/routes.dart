@@ -1,3 +1,4 @@
+import 'package:booking_admin/data/admin_account.dart';
 import 'package:booking_admin/data/booking.dart';
 import 'package:booking_admin/data/hotels.dart';
 import 'package:booking_admin/feature/manage/add_room.dart';
@@ -44,7 +45,11 @@ Route<dynamic>? Function(RouteSettings)? onGenerateRoute = (settings) {
             ));
   }
   if (settings.name == PersonInfo.routeName) {
-    return MaterialPageRoute(builder: (_) => const PersonInfo());
+    final arg = settings.arguments as AdminAccount;
+    return MaterialPageRoute(
+        builder: (_) => PersonInfo(
+              adminAccount: arg,
+            ));
   }
 
   if (settings.name == AddRoom.routeName) {
@@ -55,14 +60,14 @@ Route<dynamic>? Function(RouteSettings)? onGenerateRoute = (settings) {
             ));
   }
   if (settings.name == AddHotel.routeName) {
-    final arg = settings.arguments as Hotels;
+    final arg = settings.arguments as Hotels?;
     return MaterialPageRoute(
         builder: (_) => AddHotel(
               hotel: arg,
             ));
   }
   if (settings.name == RoomManage.routeName) {
-    final arg = settings.arguments as Hotels;
+    final arg = settings.arguments as Hotels?;
     return MaterialPageRoute(
         builder: (_) => BlocProvider(
               create: (context) => RoomBloc(),
