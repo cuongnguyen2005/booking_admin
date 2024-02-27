@@ -1,6 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:io';
 import 'package:booking_admin/data/rooms.dart';
+import 'package:booking_admin/source/utils/validate_util.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
@@ -43,7 +44,7 @@ class _AddRoomState extends State<AddRoom> {
     imageRoom = widget.arg.room?.anhPhong ?? '';
     nameHotelController.text = widget.arg.room?.tenPhong ?? '';
     roomType = widget.arg.room?.kieuPhong ?? '';
-    priceController.text = (widget.arg.room?.giaPhong ?? 0).toString();
+    priceController.text = (widget.arg.room?.giaPhong ?? '').toString();
   }
 
   User? user = FirebaseAuth.instance.currentUser;
@@ -155,19 +156,14 @@ class _AddRoomState extends State<AddRoom> {
                       BoxInput(
                         title: 'Giá phòng',
                         inputDefault: InputDefault(
+                          keyboardType: TextInputType.number,
                           hintText: 'Giá phòng',
                           obscureText: false,
                           controller: priceController,
+                          validator: ValidateUntils.validateName,
+                          autovalidateMode: AutovalidateMode.disabled,
                         ),
                       ),
-                      // BoxInput(
-                      //   title: 'Mô tả',
-                      //   inputDefault: InputDefault(
-                      //     hintText: 'Mô tả',
-                      //     obscureText: false,
-                      //     controller: descriptionController,
-                      //   ),
-                      // ),
                     ],
                   ),
                 ),
@@ -209,7 +205,6 @@ class _AddRoomState extends State<AddRoom> {
       );
       await BookingRepo.addRooms(
         nameHotelController.text,
-        widget.arg.hotelBase?.diaChi ?? '',
         widget.arg.hotelBase?.thanhPho ?? '',
         int.parse(priceController.text),
         roomType,
@@ -241,7 +236,6 @@ class _AddRoomState extends State<AddRoom> {
       await BookingRepo.editRooms(
         widget.arg.room?.idPhong ?? '',
         nameHotelController.text,
-        widget.arg.room?.diaChi ?? '',
         widget.arg.room?.thanhPho ?? '',
         int.parse(priceController.text),
         roomType,

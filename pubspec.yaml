@@ -63,7 +63,7 @@ dependencies:
   image_picker: ^1.0.2
 
   #chuyen doi tieng viet co dau thanh khong dau
-  normalize: ^0.9.1
+  tiengviet: ^1.0.0
 
 
 dev_dependencies:

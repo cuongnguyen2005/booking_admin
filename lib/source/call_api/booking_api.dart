@@ -1,5 +1,4 @@
 import 'package:booking_admin/data/booking.dart';
-import 'package:booking_admin/data/favorite_hotel.dart';
 import 'package:booking_admin/data/hotels.dart';
 import 'package:booking_admin/data/notification.dart';
 import 'package:booking_admin/data/rooms.dart';
@@ -31,6 +30,7 @@ class BookingRepo {
     String anhKS,
     String maKS,
     String moTa,
+    String codeTenKS,
   ) async {
     final dio = Dio();
     String url =
@@ -45,6 +45,7 @@ class BookingRepo {
       anhKS: anhKS,
       maKS: maKS,
       moTa: moTa,
+      codeTenKS: codeTenKS,
     );
     final Response response = await dio.post(url, data: hotel.toMap());
     if (response.data != null) {
@@ -67,6 +68,7 @@ class BookingRepo {
     String anhKS,
     String maKS,
     String moTa,
+    String codeTenKS,
   ) async {
     final dio = Dio();
     String url =
@@ -81,6 +83,7 @@ class BookingRepo {
       anhKS: anhKS,
       maKS: maKS,
       moTa: moTa,
+      codeTenKS: codeTenKS,
     );
     dio.patch(url, data: hotel.toMap());
     return [];
@@ -97,7 +100,6 @@ class BookingRepo {
   //thêm phòng
   static Future<List<Rooms>> addRooms(
       String tenPhong,
-      String diaChi,
       String thanhPho,
       int giaPhong,
       String kieuPhong,
@@ -109,7 +111,6 @@ class BookingRepo {
     Rooms room = Rooms(
       idPhong: '',
       tenPhong: tenPhong,
-      diaChi: diaChi,
       thanhPho: thanhPho,
       giaPhong: giaPhong,
       kieuPhong: kieuPhong,
@@ -131,7 +132,6 @@ class BookingRepo {
   static Future<List<Rooms>> editRooms(
       String key,
       String tenPhong,
-      String diaChi,
       String thanhPho,
       int giaPhong,
       String kieuPhong,
@@ -144,7 +144,6 @@ class BookingRepo {
     Rooms room = Rooms(
       idPhong: key,
       tenPhong: tenPhong,
-      diaChi: diaChi,
       thanhPho: thanhPho,
       giaPhong: giaPhong,
       kieuPhong: kieuPhong,
@@ -239,36 +238,6 @@ class BookingRepo {
       trangThai: trangThai,
     );
     await dio.patch(url, data: bookingHotel.toMap());
-    return [];
-  }
-
-  //save favorite hotel by user
-  static Future<List<FavoriteHotel>> saveFavoriteHotel(
-    String uid,
-    String idKS,
-    String tenKS,
-    String anhKS,
-    int gia,
-    String diaChi,
-  ) async {
-    final dio = Dio();
-    String url =
-        'https://booking-9cf26-default-rtdb.firebaseio.com/FavoriteHotelByUser/$uid.json';
-    FavoriteHotel favoriteHotel = FavoriteHotel(
-      id: '',
-      idKS: idKS,
-      tenKS: tenKS,
-      anhKS: anhKS,
-      giaKS: gia,
-      diaChi: diaChi,
-    );
-    final Response response = await dio.post(url, data: favoriteHotel.toMap());
-    if (response.data != null) {
-      String id = response.data['name'];
-      String url1 =
-          'https://booking-9cf26-default-rtdb.firebaseio.com/FavoriteHotelByUser/$uid/$id.json';
-      await dio.patch(url1, data: {'id': id});
-    }
     return [];
   }
 

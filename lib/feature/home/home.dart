@@ -5,6 +5,7 @@ import 'package:booking_admin/feature/manage/add_hotel.dart';
 import 'package:booking_admin/feature/manage/room/manage_room.dart';
 import 'package:booking_admin/source/call_api/booking_api.dart';
 import 'package:booking_admin/source/colors.dart';
+import 'package:booking_admin/source/number_format.dart';
 import 'package:booking_admin/source/typo.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -115,10 +116,11 @@ class _HomePageState extends State<HomePage> {
                                       topRight: Radius.circular(12),
                                     ),
                                     child: hotelList[index].anhKS == ''
-                                        ?  Container(
+                                        ? Container(
                                             height: 250,
                                             width: double.infinity,
-                                            color: AppColors.grey.withOpacity(0.5),
+                                            color:
+                                                AppColors.grey.withOpacity(0.5),
                                           )
                                         : Image.network(
                                             hotelList[index].anhKS,
@@ -163,7 +165,8 @@ class _HomePageState extends State<HomePage> {
                                           mainAxisAlignment:
                                               MainAxisAlignment.spaceBetween,
                                           children: [
-                                            Text('\$${hotelList[index].giaKS}',
+                                            Text(
+                                                '${NumberFormatUnity.priceFormat(hotelList[index].giaKS)} đ',
                                                 style:
                                                     tStyle.MediumBoldBlack()),
                                             Row(

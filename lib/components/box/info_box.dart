@@ -2,7 +2,6 @@
 //dùng trong trang thông tin thanh toán, và thanh toán thành công
 import 'package:booking_admin/source/colors.dart';
 import 'package:flutter/material.dart';
-
 import 'package:booking_admin/source/typo.dart';
 
 class InfoBox extends StatelessWidget {

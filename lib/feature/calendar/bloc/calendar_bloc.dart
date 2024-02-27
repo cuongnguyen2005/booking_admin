@@ -23,17 +23,16 @@ class CalendarBloc extends Bloc<CalendarEvent, CalendarState> {
           .then((value) {
         adminAccount = AdminAccount.fromMap(value.data());
       });
-      List<Booking> listBookingApi =
-          await BookingRepo.getBookingByUser();
+      List<Booking> listBookingApi = await BookingRepo.getBookingByUser();
       List<Booking> curListBooking = [];
       for (var element in listBookingApi) {
         if (element.ngayNhan.month == today.month &&
-            element.ngayNhan.year == today.year&& element.maKS == adminAccount!.maCty) {
+            element.ngayNhan.year == today.year &&
+            element.maKS == adminAccount!.maCty) {
           curListBooking.add(element);
         }
       }
       emit(CalendarState(listBooking: curListBooking));
-      print(curListBooking.length);
     });
   }
 }

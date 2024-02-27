@@ -1,5 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:booking_admin/data/rooms.dart';
+import 'package:booking_admin/source/number_format.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:booking_admin/components/btn/button_icon.dart';
@@ -126,7 +127,7 @@ class _RoomManageState extends State<RoomManage> {
                                       ],
                                     ),
                                     const SizedBox(height: 8),
-                                    Text(roomsList[index].diaChi,
+                                    Text(widget.hotel!.diaChi,
                                         style: tStyle.SmallRegular()),
                                     const SizedBox(height: 8),
                                     Row(
@@ -141,7 +142,7 @@ class _RoomManageState extends State<RoomManage> {
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceBetween,
                                       children: [
-                                        Text('\$${roomsList[index].giaPhong}',
+                                        Text('${NumberFormatUnity.priceFormat(roomsList[index].giaPhong)} đ',
                                             style: tStyle.MediumBoldBlack()),
                                         ButtonIconWidget(
                                           icon: Icons.delete,

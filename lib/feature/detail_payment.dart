@@ -2,6 +2,7 @@
 import 'package:booking_admin/components/btn/button_primary.dart';
 import 'package:booking_admin/data/booking.dart';
 import 'package:booking_admin/source/call_api/booking_api.dart';
+import 'package:booking_admin/source/number_format.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:booking_admin/components/box/info_box.dart';
@@ -163,7 +164,7 @@ class _DetailPaymentState extends State<DetailPayment> {
                       const SizedBox(height: 16),
                       InfoBox(
                           title: 'Giá phòng',
-                          content: '${widget.booking?.giaKS} đ'),
+                          content: '${NumberFormatUnity.priceFormat(widget.booking!.giaKS)} đ'),
                       const SizedBox(height: 10),
                       InfoBox(
                           title: 'Số phòng',
@@ -175,7 +176,7 @@ class _DetailPaymentState extends State<DetailPayment> {
                       const SizedBox(height: 10),
                       InfoBox(
                           title: 'Tổng số tiền',
-                          content: '${widget.booking?.thanhTien} đ'),
+                          content: '${NumberFormatUnity.priceFormat(widget.booking!.thanhTien)} đ'),
                     ],
                   ),
                 ),
@@ -242,7 +243,6 @@ class _DetailPaymentState extends State<DetailPayment> {
   }
 
   void onTapUpdateStatus() async {
-    print('object');
     await BookingRepo.editBooking(
       widget.booking!.idBooking,
       widget.booking!.idUser,

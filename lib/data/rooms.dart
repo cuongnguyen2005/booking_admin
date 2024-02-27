@@ -4,7 +4,6 @@ import 'dart:convert';
 class Rooms {
   String idPhong;
   String tenPhong;
-  String diaChi;
   String thanhPho;
   int giaPhong;
   String kieuPhong;
@@ -14,7 +13,6 @@ class Rooms {
   Rooms({
     required this.idPhong,
     required this.tenPhong,
-    required this.diaChi,
     required this.thanhPho,
     required this.giaPhong,
     required this.kieuPhong,
@@ -27,7 +25,6 @@ class Rooms {
     return <String, dynamic>{
       'idPhong': idPhong,
       'tenPhong': tenPhong,
-      'diaChi': diaChi,
       'thanhPho': thanhPho,
       'gia': giaPhong,
       'kieuPhong': kieuPhong,
@@ -41,7 +38,6 @@ class Rooms {
     return Rooms(
       idPhong: map['idPhong'] as String,
       tenPhong: map['tenPhong'] as String,
-      diaChi: map['diaChi'] as String,
       thanhPho: map['thanhPho'] as String,
       giaPhong: map['gia'] as int,
       kieuPhong: map['kieuPhong'] as String,

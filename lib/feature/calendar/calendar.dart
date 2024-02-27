@@ -4,6 +4,7 @@ import 'package:booking_admin/feature/calendar/bloc/calendar_bloc.dart';
 import 'package:booking_admin/feature/calendar/bloc/calendar_event.dart';
 import 'package:booking_admin/feature/detail_payment.dart';
 import 'package:booking_admin/source/colors.dart';
+import 'package:booking_admin/source/number_format.dart';
 import 'package:booking_admin/source/typo.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -143,7 +144,7 @@ class _CalendarWidgetState extends State<CalendarWidget> {
                                     padding: const EdgeInsets.only(top: 12),
                                     width: double.infinity,
                                     child: Text(
-                                      '${bookingList[index].thanhTien} đ',
+                                      '${NumberFormatUnity.priceFormat(bookingList[index].thanhTien)} đ',
                                       style: tStyle.BaseBoldPrimary(),
                                       textAlign: TextAlign.end,
                                     ),
