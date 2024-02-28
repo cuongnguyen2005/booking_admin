@@ -256,7 +256,7 @@ class _AddHotelState extends State<AddHotel> {
             descriptionController.text,
             TiengViet.parse(nameHotelController.text),
           );
-          Navigator.pop(context);
+          onTapBack();
         }
       }
     }
@@ -290,8 +290,7 @@ class _AddHotelState extends State<AddHotel> {
             descriptionController.text,
             TiengViet.parse(nameHotelController.text),
           );
-
-          Navigator.of(context).pop();
+          onTapBack();
         }
       }
     }

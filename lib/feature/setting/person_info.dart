@@ -47,7 +47,7 @@ class _PersonInfoState extends State<PersonInfo> {
         return;
       }
       Reference referenceRoot = FirebaseStorage.instance.ref();
-      Reference referenceDirectImage = referenceRoot.child('users');
+      Reference referenceDirectImage = referenceRoot.child('admins');
       Reference referenceUpload = referenceDirectImage.child(fileName);
       try {
         await referenceUpload.putFile(File(pickedFile.path));
@@ -68,7 +68,7 @@ class _PersonInfoState extends State<PersonInfo> {
       //get user from firestore and update image on client
       AdminAccount? userAccFromDB;
       FirebaseFirestore.instance
-          .collection('users')
+          .collection('admins')
           .doc(user?.uid)
           .get()
           .then((value) {

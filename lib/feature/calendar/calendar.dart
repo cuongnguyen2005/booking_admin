@@ -1,8 +1,9 @@
-import 'package:booking_admin/components/top_bar/topbar_third.dart';
+import 'package:booking_admin/components/top_bar/topbar_second.dart';
 import 'package:booking_admin/data/booking.dart';
 import 'package:booking_admin/feature/calendar/bloc/calendar_bloc.dart';
 import 'package:booking_admin/feature/calendar/bloc/calendar_event.dart';
 import 'package:booking_admin/feature/detail_payment.dart';
+import 'package:booking_admin/feature/seach_booking.dart';
 import 'package:booking_admin/source/colors.dart';
 import 'package:booking_admin/source/number_format.dart';
 import 'package:booking_admin/source/typo.dart';
@@ -35,7 +36,10 @@ class _CalendarWidgetState extends State<CalendarWidget> {
     return Scaffold(
       body: Column(
         children: [
-          const TopBarThird(text: 'Lịch trình của bạn'),
+          TopBarSecond(
+            text: 'Lịch trình của bạn',
+            onTap: onTapSearch,
+          ),
           Container(
             color: AppColors.white,
             child: TableCalendar(
@@ -170,5 +174,9 @@ class _CalendarWidgetState extends State<CalendarWidget> {
     Navigator.pushNamed(context, DetailPayment.routeName,
             arguments: bookingList[index])
         .then((value) => getBookingList());
+  }
+
+  void onTapSearch() {
+    Navigator.pushNamed(context, SearchBookingPage.routeName);
   }
 }

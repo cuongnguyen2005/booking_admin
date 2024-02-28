@@ -28,7 +28,7 @@ class _DetailPaymentState extends State<DetailPayment> {
   void initState() {
     super.initState();
     getStatusText();
-    statusCode = widget.booking?.trangThai;
+    statusCode = widget.booking!.trangThai;
   }
 
   void getStatusText() {
@@ -164,7 +164,8 @@ class _DetailPaymentState extends State<DetailPayment> {
                       const SizedBox(height: 16),
                       InfoBox(
                           title: 'Giá phòng',
-                          content: '${NumberFormatUnity.priceFormat(widget.booking!.giaKS)} đ'),
+                          content:
+                              '${NumberFormatUnity.priceFormat(widget.booking!.giaKS)} đ'),
                       const SizedBox(height: 10),
                       InfoBox(
                           title: 'Số phòng',
@@ -176,7 +177,8 @@ class _DetailPaymentState extends State<DetailPayment> {
                       const SizedBox(height: 10),
                       InfoBox(
                           title: 'Tổng số tiền',
-                          content: '${NumberFormatUnity.priceFormat(widget.booking!.thanhTien)} đ'),
+                          content:
+                              '${NumberFormatUnity.priceFormat(widget.booking!.thanhTien)} đ'),
                     ],
                   ),
                 ),
@@ -227,7 +229,9 @@ class _DetailPaymentState extends State<DetailPayment> {
                     margin: const EdgeInsets.all(16),
                     child: ButtonPrimary(
                       text: 'Cập nhật',
-                      onTap: statusCode == 2 ? onTapUpdateStatus : onTapNull,
+                      onTap: widget.booking?.trangThai == 2
+                          ? onTapUpdateStatus
+                          : onTapNull,
                     ),
                   ),
               ],
@@ -243,26 +247,43 @@ class _DetailPaymentState extends State<DetailPayment> {
   }
 
   void onTapUpdateStatus() async {
-    await BookingRepo.editBooking(
-      widget.booking!.idBooking,
-      widget.booking!.idUser,
-      widget.booking!.hoTen,
-      widget.booking!.email,
-      widget.booking!.sdt,
-      widget.booking!.ngayNhan,
-      widget.booking!.ngayTra,
-      widget.booking!.soDem,
-      widget.booking!.soNguoi,
-      widget.booking!.soPhong,
-      widget.booking!.thanhTien,
-      widget.booking!.tenKS,
-      widget.booking!.tenPhong,
-      widget.booking!.giaKS,
-      widget.booking!.kieuPhong,
-      widget.booking!.maKS,
-      statusCode!,
-    );
+    if (statusCode != 2) {
+      // print('not null');
+      showDialog(
+        context: context,
+        builder: (context) {
+          return const AlertDialog(
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(Radius.circular(16))),
+            title: Icon(Icons.check_circle, size: 50, color: AppColors.primary),
+            content: Text('Thành công', textAlign: TextAlign.center),
+          );
+        },
+      );
+      await BookingRepo.editBooking(
+        widget.booking!.idBooking,
+        widget.booking!.idUser,
+        widget.booking!.hoTen,
+        widget.booking!.email,
+        widget.booking!.sdt,
+        widget.booking!.ngayNhan,
+        widget.booking!.ngayTra,
+        widget.booking!.soDem,
+        widget.booking!.soNguoi,
+        widget.booking!.soPhong,
+        widget.booking!.thanhTien,
+        widget.booking!.tenKS,
+        widget.booking!.tenPhong,
+        widget.booking!.giaKS,
+        widget.booking!.kieuPhong,
+        widget.booking!.maKS,
+        statusCode!,
+      );
+      onTapBack();
+    }
   }
 
-  void onTapNull() {}
+  void onTapNull() {
+    // print('null');
+  }
 }

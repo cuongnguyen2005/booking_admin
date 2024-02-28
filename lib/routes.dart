@@ -8,6 +8,7 @@ import 'package:booking_admin/feature/login/bloc/login_bloc.dart';
 import 'package:booking_admin/feature/login/login.dart';
 import 'package:booking_admin/feature/manage/add_hotel.dart';
 import 'package:booking_admin/feature/manage/room/manage_room.dart';
+import 'package:booking_admin/feature/seach_booking.dart';
 import 'package:booking_admin/feature/setting/person_info.dart';
 import 'package:booking_admin/feature/signup/bloc/signup_bloc.dart';
 import 'package:booking_admin/feature/signup/signup.dart';
@@ -75,6 +76,9 @@ Route<dynamic>? Function(RouteSettings)? onGenerateRoute = (settings) {
                 hotel: arg,
               ),
             ));
+  }
+  if (settings.name == SearchBookingPage.routeName) {
+    return MaterialPageRoute(builder: (_) => const SearchBookingPage());
   }
 
   return null;
