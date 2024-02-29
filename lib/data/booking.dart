@@ -2,83 +2,87 @@ import 'dart:convert';
 
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 class Booking {
-  String idBooking;
-  String idUser;
-  String hoTen;
-  String email;
-  String sdt;
+  String idDatPhong;
   DateTime ngayNhan;
   DateTime ngayTra;
   int soDem;
-  int soNguoi;
-  int soPhong;
+  int soLuongNguoi;
+  int soLuongPhong;
   int thanhTien;
-  String tenKS;
+  String hoTen;
+  String email;
+  String sdt;
+  int dienTichPhong;
   String tenPhong;
-  int giaKS;
-  String kieuPhong;
+  int giaPhong;
+  String loaiGiuong;
   String maKS;
+  String tenKS;
+  String idKhachHang;
   int trangThai;
   Booking({
-    required this.idBooking,
-    required this.idUser,
-    required this.hoTen,
-    required this.email,
-    required this.sdt,
+    required this.idDatPhong,
     required this.ngayNhan,
     required this.ngayTra,
     required this.soDem,
-    required this.soNguoi,
-    required this.soPhong,
+    required this.soLuongNguoi,
+    required this.soLuongPhong,
     required this.thanhTien,
-    required this.tenKS,
+    required this.hoTen,
+    required this.email,
+    required this.sdt,
+    required this.dienTichPhong,
     required this.tenPhong,
-    required this.giaKS,
-    required this.kieuPhong,
+    required this.giaPhong,
+    required this.loaiGiuong,
     required this.maKS,
+    required this.tenKS,
+    required this.idKhachHang,
     required this.trangThai,
   });
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
-      'idBooking': idBooking,
-      'idUser': idUser,
-      'hoTen': hoTen,
-      'email': email,
-      'sdt': sdt,
+      'idDatPhong': idDatPhong,
       'ngayNhan': ngayNhan.toIso8601String(),
       'ngayTra': ngayTra.toIso8601String(),
       'soDem': soDem,
-      'soNguoi': soNguoi,
-      'soPhong': soPhong,
+      'soLuongNguoi': soLuongNguoi,
+      'soLuongPhong': soLuongPhong,
       'thanhTien': thanhTien,
-      'idKS': tenKS,
-      'tenKS': tenPhong,
-      'giaPhong': giaKS,
-      'kieuPhong': kieuPhong,
+      'hoTen': hoTen,
+      'email': email,
+      'sdt': sdt,
+      'dienTichPhong': dienTichPhong,
+      'tenPhong': tenPhong,
+      'giaPhong': giaPhong,
+      'loaiGiuong': loaiGiuong,
       'maKS': maKS,
+      'tenKS': tenKS,
+      'idKhachHang': idKhachHang,
       'trangThai': trangThai,
     };
   }
 
   factory Booking.fromMap(Map<String, dynamic> map) {
     return Booking(
-      idBooking: map['idBooking'] as String,
-      idUser: map['idUser'] as String,
-      hoTen: map['hoTen'] as String,
-      email: map['email'] as String,
-      sdt: map['sdt'] as String,
+      idDatPhong: map['idDatPhong'] as String,
       ngayNhan: DateTime.parse(map['ngayNhan']),
       ngayTra: DateTime.parse(map['ngayTra']),
       soDem: map['soDem'] as int,
-      soNguoi: map['soNguoi'] as int,
-      soPhong: map['soPhong'] as int,
+      soLuongNguoi: map['soLuongNguoi'] as int,
+      soLuongPhong: map['soLuongPhong'] as int,
       thanhTien: map['thanhTien'] as int,
-      tenKS: map['idKS'] as String,
-      tenPhong: map['tenKS'] as String,
-      giaKS: map['giaPhong'] as int,
-      kieuPhong: map['kieuPhong'] as String,
+      hoTen: map['hoTen'] as String,
+      email: map['email'] as String,
+      sdt: map['sdt'] as String,
+      dienTichPhong: map['dienTichPhong'] as int,
+      tenPhong: map['tenPhong'] as String,
+      giaPhong: map['giaPhong'] as int,
+      loaiGiuong: map['loaiGiuong'] as String,
       maKS: map['maKS'] as String,
+      tenKS: map['tenKS'] as String,
+      idKhachHang: map['idKhachHang'] as String,
       trangThai: map['trangThai'] as int,
     );
   }

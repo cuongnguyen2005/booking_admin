@@ -139,7 +139,7 @@ class _CalendarWidgetState extends State<CalendarWidget> {
                                       children: [
                                         const Icon(Icons.home),
                                         const SizedBox(width: 10),
-                                        Text(bookingList[index].tenPhong,
+                                        Text(bookingList[index].tenKS,
                                             style: tStyle.BaseBoldBlack()),
                                       ],
                                     ),

@@ -16,7 +16,7 @@ class DetailPayment extends StatefulWidget {
     Key? key,
     required this.booking,
   }) : super(key: key);
-  final Booking? booking;
+  final Booking booking;
   static String routeName = 'detail_payment';
 
   @override
@@ -28,15 +28,15 @@ class _DetailPaymentState extends State<DetailPayment> {
   void initState() {
     super.initState();
     getStatusText();
-    statusCode = widget.booking!.trangThai;
+    statusCode = widget.booking.trangThai;
   }
 
   void getStatusText() {
-    if (widget.booking?.trangThai == 2) {
+    if (widget.booking.trangThai == 2) {
       statusName = 'Đang xử lý';
-    } else if (widget.booking?.trangThai == 1) {
+    } else if (widget.booking.trangThai == 1) {
       statusName = 'Đã từ chối';
-    } else if (widget.booking?.trangThai == 0) {
+    } else if (widget.booking.trangThai == 0) {
       statusName = 'Thành công';
     }
   }
@@ -67,17 +67,17 @@ class _DetailPaymentState extends State<DetailPayment> {
                             horizontal: 12, vertical: 4),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(16),
-                          color: widget.booking?.trangThai == 2
+                          color: widget.booking.trangThai == 2
                               ? AppColors.yellow.withOpacity(0.2)
-                              : widget.booking?.trangThai == 1
+                              : widget.booking.trangThai == 1
                                   ? AppColors.red.withOpacity(0.2)
                                   : AppColors.green.withOpacity(0.2),
                         ),
                         child: Text(
                           statusName,
-                          style: widget.booking?.trangThai == 2
+                          style: widget.booking.trangThai == 2
                               ? tStyle.BaseRegularYellow()
-                              : widget.booking?.trangThai == 1
+                              : widget.booking.trangThai == 1
                                   ? tStyle.BaseRegularRed()
                                   : tStyle.BaseRegularGreen(),
                           textAlign: TextAlign.center,
@@ -85,15 +85,17 @@ class _DetailPaymentState extends State<DetailPayment> {
                       ),
                       const SizedBox(height: 16),
                       OrderForm(
-                        nameHotel: widget.booking!.tenPhong,
-                        night: '${widget.booking?.soDem} đêm',
-                        people: '${widget.booking?.soNguoi}  người',
-                        roomType:
-                            'Phòng ${widget.booking?.kieuPhong}   x ${widget.booking?.soPhong}',
+                        nameHotel: widget.booking.tenKS,
+                        nameRoom:
+                            '${widget.booking.tenPhong}  x ${widget.booking.soLuongPhong}',
+                        dienTich: '${widget.booking.dienTichPhong}',
+                        night: '${widget.booking.soDem} đêm',
+                        people: '${widget.booking.soLuongNguoi}  người',
+                        roomType: widget.booking.loaiGiuong,
                         checkin:
-                            '${DateFormat.yMd().format(widget.booking!.ngayNhan)} (15:00 - 03:00)',
+                            '${DateFormat.yMd().format(widget.booking.ngayNhan)} (15:00 - 03:00)',
                         checkout:
-                            '${DateFormat.yMd().format(widget.booking!.ngayTra)} (trước 11:00)',
+                            '${DateFormat.yMd().format(widget.booking.ngayTra)} (trước 11:00)',
                       )
                     ],
                   ),
@@ -120,7 +122,7 @@ class _DetailPaymentState extends State<DetailPayment> {
                               Text('Tên khách',
                                   style: tStyle.BaseRegularBlack()),
                               const SizedBox(height: 5),
-                              Text(widget.booking!.hoTen,
+                              Text(widget.booking.hoTen,
                                   style: tStyle.BaseBoldBlack()),
                             ],
                           )
@@ -141,12 +143,12 @@ class _DetailPaymentState extends State<DetailPayment> {
                         style: tStyle.BaseBoldBlack(),
                       ),
                       const SizedBox(height: 16),
-                      InfoBox(title: 'Họ tên', content: widget.booking!.hoTen),
+                      InfoBox(title: 'Họ tên', content: widget.booking.hoTen),
                       const SizedBox(height: 10),
                       InfoBox(
-                          title: 'Số điện thoại', content: widget.booking!.sdt),
+                          title: 'Số điện thoại', content: widget.booking.sdt),
                       const SizedBox(height: 10),
-                      InfoBox(title: 'Email', content: widget.booking!.email),
+                      InfoBox(title: 'Email', content: widget.booking.email),
                     ],
                   ),
                 ),
@@ -165,20 +167,20 @@ class _DetailPaymentState extends State<DetailPayment> {
                       InfoBox(
                           title: 'Giá phòng',
                           content:
-                              '${NumberFormatUnity.priceFormat(widget.booking!.giaKS)} đ'),
+                              '${NumberFormatUnity.priceFormat(widget.booking.giaPhong)} đ'),
                       const SizedBox(height: 10),
                       InfoBox(
                           title: 'Số phòng',
-                          content: 'x ${widget.booking?.soPhong}'),
+                          content: 'x ${widget.booking.soLuongPhong}'),
                       const SizedBox(height: 10),
                       InfoBox(
                           title: 'Số đêm',
-                          content: 'x ${widget.booking?.soDem}'),
+                          content: 'x ${widget.booking.soDem}'),
                       const SizedBox(height: 10),
                       InfoBox(
                           title: 'Tổng số tiền',
                           content:
-                              '${NumberFormatUnity.priceFormat(widget.booking!.thanhTien)} đ'),
+                              '${NumberFormatUnity.priceFormat(widget.booking.thanhTien)} đ'),
                     ],
                   ),
                 ),
@@ -229,7 +231,7 @@ class _DetailPaymentState extends State<DetailPayment> {
                     margin: const EdgeInsets.all(16),
                     child: ButtonPrimary(
                       text: 'Cập nhật',
-                      onTap: widget.booking?.trangThai == 2
+                      onTap: widget.booking.trangThai == 2
                           ? onTapUpdateStatus
                           : onTapNull,
                     ),
@@ -261,22 +263,23 @@ class _DetailPaymentState extends State<DetailPayment> {
         },
       );
       await BookingRepo.editBooking(
-        widget.booking!.idBooking,
-        widget.booking!.idUser,
-        widget.booking!.hoTen,
-        widget.booking!.email,
-        widget.booking!.sdt,
-        widget.booking!.ngayNhan,
-        widget.booking!.ngayTra,
-        widget.booking!.soDem,
-        widget.booking!.soNguoi,
-        widget.booking!.soPhong,
-        widget.booking!.thanhTien,
-        widget.booking!.tenKS,
-        widget.booking!.tenPhong,
-        widget.booking!.giaKS,
-        widget.booking!.kieuPhong,
-        widget.booking!.maKS,
+        widget.booking.idDatPhong,
+        widget.booking.ngayNhan,
+        widget.booking.ngayTra,
+        widget.booking.soDem,
+        widget.booking.soLuongNguoi,
+        widget.booking.soLuongPhong,
+        widget.booking.thanhTien,
+        widget.booking.hoTen,
+        widget.booking.email,
+        widget.booking.sdt,
+        widget.booking.dienTichPhong,
+        widget.booking.tenPhong,
+        widget.booking.giaPhong,
+        widget.booking.loaiGiuong,
+        widget.booking.maKS,
+        widget.booking.tenKS,
+        widget.booking.idKhachHang,
         statusCode!,
       );
       onTapBack();

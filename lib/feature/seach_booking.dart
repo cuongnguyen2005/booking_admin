@@ -54,7 +54,7 @@ class _SearchBookingPageState extends State<SearchBookingPage> {
     }
     setState(() {
       bookingList = curListBooking
-          .where((element) => (TiengViet.parse(element.tenPhong))
+          .where((element) => (TiengViet.parse(element.tenKS))
               .toLowerCase()
               .contains((TiengViet.parse(value)).toLowerCase()))
           .toList();
@@ -140,7 +140,7 @@ class _SearchBookingPageState extends State<SearchBookingPage> {
                                 children: [
                                   const Icon(Icons.home),
                                   const SizedBox(width: 10),
-                                  Text(bookingList[index].tenPhong,
+                                  Text(bookingList[index].tenKS,
                                       style: tStyle.BaseBoldBlack()),
                                 ],
                               ),

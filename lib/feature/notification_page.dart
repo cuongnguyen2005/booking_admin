@@ -1,8 +1,11 @@
 import 'package:booking_admin/components/top_bar/topbar_third.dart';
+import 'package:booking_admin/data/admin_account.dart';
 import 'package:booking_admin/data/notification.dart';
 import 'package:booking_admin/source/call_api/booking_api.dart';
 import 'package:booking_admin/source/colors.dart';
 import 'package:booking_admin/source/typo.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -22,10 +25,25 @@ class _NotificationPageState extends State<NotificationPage> {
 
   List<NotificationClass> notifiList = [];
   void getNotifi() async {
-    List<NotificationClass> notifiListAPI = await BookingRepo.getNotifi();
-    setState(() {
-      notifiList = notifiListAPI;
+    User? user = FirebaseAuth.instance.currentUser;
+    AdminAccount? adminAccount;
+    FirebaseFirestore.instance
+        .collection('admins')
+        .doc(user?.uid)
+        .get()
+        .then((value) {
+      setState(() {
+        adminAccount = AdminAccount.fromMap(value.data());
+      });
     });
+    List<NotificationClass> notifiListAPI = await BookingRepo.getNotifi();
+    for (var element in notifiListAPI) {
+      if (element.maCty == adminAccount!.maCty) {
+        setState(() {
+          notifiList.add(element);
+        });
+      }
+    }
   }
 
   @override
@@ -53,24 +71,27 @@ class _NotificationPageState extends State<NotificationPage> {
                     children: [
                       const Icon(Icons.notifications, color: AppColors.red),
                       const SizedBox(width: 5),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        children: [
-                          Text(
-                            'Bạn có đơn mới từ được đặt vào ngày ${DateFormat.yMd().format(notifiList[index].dateCheckIn)}',
-                            style: tStyle.MediumBoldBlack(),
-                          ),
-                          const SizedBox(height: 5),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: [
-                              Text(
-                                ' ${DateFormat.jm().format(notifiList[index].dateTime)}',
-                                style: tStyle.MediumRegularBlack(),
-                              ),
-                            ],
-                          ),
-                        ],
+                      Flexible(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          children: [
+                            Text(
+                              'Bạn có đơn mới của khách sạn ${notifiList[index].tenKS} được đặt vào ngày ${DateFormat.yMd().format(notifiList[index].dateCheckIn)}',
+                              style: tStyle.MediumBoldBlack(),
+                              overflow: TextOverflow.fade,
+                            ),
+                            const SizedBox(height: 5),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                Text(
+                                  ' ${DateFormat.jm().format(notifiList[index].dateTime)}',
+                                  style: tStyle.MediumRegularBlack(),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
                       ),
                     ],
                   ),

@@ -4,11 +4,13 @@ import 'dart:convert';
 class NotificationClass {
   String idNoti;
   String tenKS;
+  String maCty;
   DateTime dateTime;
   DateTime dateCheckIn;
   NotificationClass({
     required this.idNoti,
     required this.tenKS,
+    required this.maCty,
     required this.dateTime,
     required this.dateCheckIn,
   });
@@ -17,6 +19,7 @@ class NotificationClass {
     return <String, dynamic>{
       'idNoti': idNoti,
       'tenKS': tenKS,
+      'maCty': maCty,
       'dateTime': dateTime.toIso8601String(),
       'dateCheckIn': dateCheckIn.toIso8601String(),
     };
@@ -26,6 +29,7 @@ class NotificationClass {
     return NotificationClass(
       idNoti: map['idNoti'] as String,
       tenKS: map['tenKS'] as String,
+      maCty: map['maCty'] as String,
       dateTime: DateTime.parse(map['dateTime']),
       dateCheckIn: DateTime.parse(map['dateCheckIn']),
     );
@@ -33,5 +37,6 @@ class NotificationClass {
 
   String toJson() => json.encode(toMap());
 
-  factory NotificationClass.fromJson(String source) => NotificationClass.fromMap(json.decode(source) as Map<String, dynamic>);
+  factory NotificationClass.fromJson(String source) =>
+      NotificationClass.fromMap(json.decode(source) as Map<String, dynamic>);
 }
