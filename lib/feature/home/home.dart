@@ -159,7 +159,7 @@ class _HomePageState extends State<HomePage> {
                                         ),
                                         const SizedBox(height: 8),
                                         Text(hotelList[index].diaChi,
-                                            style: tStyle.SmallRegular()),
+                                            style: tStyle.BaseRegularBlack()),
                                         const SizedBox(height: 8),
                                         Row(
                                           mainAxisAlignment:

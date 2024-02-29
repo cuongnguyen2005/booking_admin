@@ -57,7 +57,7 @@ class _NotificationPageState extends State<NotificationPage> {
                         crossAxisAlignment: CrossAxisAlignment.end,
                         children: [
                           Text(
-                            'Bạn có đơn mới từ được đặt vào ngày ${DateFormat.yMd().format(notifiList[index].dateTime)}',
+                            'Bạn có đơn mới từ được đặt vào ngày ${DateFormat.yMd().format(notifiList[index].dateCheckIn)}',
                             style: tStyle.MediumBoldBlack(),
                           ),
                           const SizedBox(height: 5),
