@@ -25,12 +25,10 @@ class BookingRepo {
     String tenKS,
     String diaChi,
     String thanhPho,
-    String maDiaDiem,
     int gia,
     String anhKS,
     String maKS,
     String moTa,
-    String codeTenKS,
   ) async {
     final dio = Dio();
     String url =
@@ -40,12 +38,10 @@ class BookingRepo {
       tenKS: tenKS,
       diaChi: diaChi,
       thanhPho: thanhPho,
-      maDiaDiem: maDiaDiem,
       giaKS: gia,
       anhKS: anhKS,
       maKS: maKS,
       moTa: moTa,
-      codeTenKS: codeTenKS,
     );
     final Response response = await dio.post(url, data: hotel.toMap());
     if (response.data != null) {
@@ -63,12 +59,10 @@ class BookingRepo {
     String tenKS,
     String diaChi,
     String thanhPho,
-    String maDiaDiem,
     int gia,
     String anhKS,
     String maKS,
     String moTa,
-    String codeTenKS,
   ) async {
     final dio = Dio();
     String url =
@@ -78,12 +72,10 @@ class BookingRepo {
       tenKS: tenKS,
       diaChi: diaChi,
       thanhPho: thanhPho,
-      maDiaDiem: maDiaDiem,
       giaKS: gia,
       anhKS: anhKS,
       maKS: maKS,
       moTa: moTa,
-      codeTenKS: codeTenKS,
     );
     dio.patch(url, data: hotel.toMap());
     return [];
@@ -99,24 +91,27 @@ class BookingRepo {
 
   //thêm phòng
   static Future<List<Rooms>> addRooms(
-      String tenPhong,
-      String thanhPho,
-      int giaPhong,
-      String kieuPhong,
-      String anhPhong,
-      String idKS,
-      String maKS) async {
+    String tenPhong,
+    int giaPhong,
+    String loaiGiuong,
+    int soLuongGiuong,
+    String anhPhong,
+    int soLuongNguoiLon,
+    int dienTichPhong,
+    String idKS,
+  ) async {
     final dio = Dio();
     String url = 'https://booking-9cf26-default-rtdb.firebaseio.com/Rooms.json';
     Rooms room = Rooms(
       idPhong: '',
       tenPhong: tenPhong,
-      thanhPho: thanhPho,
       giaPhong: giaPhong,
-      kieuPhong: kieuPhong,
+      loaiGiuong: loaiGiuong,
+      soLuongGiuong: soLuongGiuong,
       anhPhong: anhPhong,
+      soLuongNguoi: soLuongNguoiLon,
+      dienTichPhong: dienTichPhong,
       idKS: idKS,
-      maKS: maKS,
     );
     final Response response = await dio.post(url, data: room.toMap());
     if (response.data != null) {
@@ -130,26 +125,29 @@ class BookingRepo {
 
   //edit phòng
   static Future<List<Rooms>> editRooms(
-      String key,
-      String tenPhong,
-      String thanhPho,
-      int giaPhong,
-      String kieuPhong,
-      String anhPhong,
-      String idKS,
-      String maKS) async {
+    String key,
+    String tenPhong,
+    int giaPhong,
+    String loaiGiuong,
+    int soLuongGiuong,
+    String anhPhong,
+    int soLuongNguoiLon,
+    int dienTichPhong,
+    String idKS,
+  ) async {
     final dio = Dio();
     String url =
         'https://booking-9cf26-default-rtdb.firebaseio.com/Rooms/$key.json';
     Rooms room = Rooms(
       idPhong: key,
       tenPhong: tenPhong,
-      thanhPho: thanhPho,
       giaPhong: giaPhong,
-      kieuPhong: kieuPhong,
+      loaiGiuong: loaiGiuong,
+      soLuongGiuong: soLuongGiuong,
       anhPhong: anhPhong,
+      soLuongNguoi: soLuongNguoiLon,
+      dienTichPhong: dienTichPhong,
       idKS: idKS,
-      maKS: maKS,
     );
     await dio.patch(url, data: room.toMap());
 

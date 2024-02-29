@@ -1,6 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:io';
 import 'package:booking_admin/data/rooms.dart';
+import 'package:booking_admin/source/typo.dart';
 import 'package:booking_admin/source/utils/validate_util.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -43,8 +44,12 @@ class _AddRoomState extends State<AddRoom> {
     super.initState();
     imageRoom = widget.arg.room?.anhPhong ?? '';
     nameHotelController.text = widget.arg.room?.tenPhong ?? '';
-    roomType = widget.arg.room?.kieuPhong ?? '';
+    bedType = widget.arg.room?.loaiGiuong ?? 'đơn';
     priceController.text = (widget.arg.room?.giaPhong ?? '').toString();
+    soLuongNguoi = widget.arg.room?.soLuongNguoi ?? 1;
+    soLuongGiuong = widget.arg.room?.soLuongGiuong ?? 1;
+    dienTichPhongController.text =
+        (widget.arg.room?.dienTichPhong ?? '').toString();
   }
 
   User? user = FirebaseAuth.instance.currentUser;
@@ -74,10 +79,14 @@ class _AddRoomState extends State<AddRoom> {
     }
   }
 
-  String roomType = 'đơn';
+  String bedType = 'đơn';
   String imageRoom = '';
+  int soLuongNguoi = 1;
+  int soLuongGiuong = 1;
+  int dienTichPhong = 0;
   final TextEditingController nameHotelController = TextEditingController();
   final TextEditingController priceController = TextEditingController();
+  final TextEditingController dienTichPhongController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -138,20 +147,68 @@ class _AddRoomState extends State<AddRoom> {
                         ),
                       ),
                       RadioSelect(
-                        groupValue: roomType,
+                        groupValue: bedType,
                         onChanged1: (value) {
                           setState(() {
-                            roomType = value.toString();
+                            bedType = value.toString();
                           });
                         },
                         onChanged2: (value) {
                           setState(() {
-                            roomType = value.toString();
+                            bedType = value.toString();
                           });
                         },
-                        title: 'Loại phòng',
+                        title: 'Loại Giường',
                         value1: 'Đôi',
                         value2: 'Đơn',
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            'Số lượng giường',
+                            style: tStyle.MediumBoldBlack(),
+                          ),
+                          Row(
+                            children: [
+                              ElevatedButton(
+                                onPressed: () {
+                                  if (soLuongGiuong > 1) {
+                                    setState(() {
+                                      soLuongGiuong -= 1;
+                                    });
+                                  }
+                                },
+                                child: const Icon(Icons.remove),
+                              ),
+                              const SizedBox(width: 5),
+                              ElevatedButton(
+                                onPressed: () {},
+                                child: Text('$soLuongGiuong'),
+                              ),
+                              const SizedBox(width: 5),
+                              ElevatedButton(
+                                onPressed: () {
+                                  setState(() {
+                                    soLuongGiuong += 1;
+                                  });
+                                },
+                                child: const Icon(Icons.add),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                      BoxInput(
+                        title: 'Diện tích phòng',
+                        inputDefault: InputDefault(
+                          keyboardType: TextInputType.number,
+                          hintText: 'Diện tích phòng',
+                          obscureText: false,
+                          controller: dienTichPhongController,
+                          validator: ValidateUntils.validateName,
+                          autovalidateMode: AutovalidateMode.disabled,
+                        ),
                       ),
                       BoxInput(
                         title: 'Giá phòng',
@@ -163,6 +220,43 @@ class _AddRoomState extends State<AddRoom> {
                           validator: ValidateUntils.validateName,
                           autovalidateMode: AutovalidateMode.disabled,
                         ),
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            'Số lượng người tối đa',
+                            style: tStyle.MediumBoldBlack(),
+                          ),
+                          Row(
+                            children: [
+                              ElevatedButton(
+                                onPressed: () {
+                                  if (soLuongNguoi > 1) {
+                                    setState(() {
+                                      soLuongNguoi -= 1;
+                                    });
+                                  }
+                                },
+                                child: const Icon(Icons.remove),
+                              ),
+                              const SizedBox(width: 5),
+                              ElevatedButton(
+                                onPressed: () {},
+                                child: Text('$soLuongNguoi'),
+                              ),
+                              const SizedBox(width: 5),
+                              ElevatedButton(
+                                onPressed: () {
+                                  setState(() {
+                                    soLuongNguoi += 1;
+                                  });
+                                },
+                                child: const Icon(Icons.add),
+                              ),
+                            ],
+                          ),
+                        ],
                       ),
                     ],
                   ),
@@ -205,12 +299,13 @@ class _AddRoomState extends State<AddRoom> {
       );
       await BookingRepo.addRooms(
         nameHotelController.text,
-        widget.arg.hotelBase?.thanhPho ?? '',
         int.parse(priceController.text),
-        roomType,
+        bedType,
+        soLuongGiuong,
         imageRoom,
+        soLuongNguoi,
+        int.parse(dienTichPhongController.text),
         widget.arg.hotelBase?.idKS ?? '',
-        widget.arg.hotelBase?.maKS ?? '',
       );
       // ignore: use_build_context_synchronously
       Navigator.pop(context);
@@ -236,12 +331,13 @@ class _AddRoomState extends State<AddRoom> {
       await BookingRepo.editRooms(
         widget.arg.room?.idPhong ?? '',
         nameHotelController.text,
-        widget.arg.room?.thanhPho ?? '',
         int.parse(priceController.text),
-        roomType,
+        bedType,
+        soLuongGiuong,
         imageRoom,
+        soLuongNguoi,
+        int.parse(dienTichPhongController.text),
         widget.arg.room?.idKS ?? '',
-        widget.arg.room?.maKS ?? '',
       );
       // ignore: use_build_context_synchronously
       Navigator.pop(context);

@@ -1,5 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:io';
+import 'package:booking_admin/feature/login/login.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -10,7 +11,6 @@ import 'package:booking_admin/components/btn/button_primary.dart';
 import 'package:booking_admin/components/text_field/text_field_default.dart';
 import 'package:booking_admin/components/top_bar/topbar_default.dart';
 import 'package:booking_admin/data/admin_account.dart';
-import 'package:booking_admin/feature/bottom_navi.dart';
 import 'package:booking_admin/source/colors.dart';
 
 class PersonInfo extends StatefulWidget {
@@ -32,8 +32,6 @@ class _PersonInfoState extends State<PersonInfo> {
   }
 
   User? user = FirebaseAuth.instance.currentUser;
-
-
   String imageUrl = '';
 
   Future<void> pickImage() async {
@@ -56,13 +54,16 @@ class _PersonInfoState extends State<PersonInfo> {
         //some error
       }
       AdminAccount userAcc = AdminAccount(
-          hoTen: widget.adminAccount.hoTen,
-          gioiTinh: widget.adminAccount.gioiTinh,
-          diaChi: widget.adminAccount.diaChi,
-          avatar: imageUrl,
-          email: widget.adminAccount.email,
-          sdt: widget.adminAccount.sdt,
-          maCty: widget.adminAccount.maCty);
+        hoTen: widget.adminAccount.hoTen,
+        ngaySinh: widget.adminAccount.ngaySinh,
+        diaChi: widget.adminAccount.diaChi,
+        cmnd: widget.adminAccount.cmnd,
+        sdt: widget.adminAccount.sdt,
+        gioiTinh: widget.adminAccount.gioiTinh,
+        avatar: imageUrl,
+        email: widget.adminAccount.email,
+        maCty: widget.adminAccount.maCty,
+      );
       //save to firestore
       addtoServer(userAcc);
       //get user from firestore and update image on client
@@ -161,6 +162,24 @@ class _PersonInfoState extends State<PersonInfo> {
                   onTap: onTapChangeName,
                 ),
                 SettingBoxSecondary(
+                  icon1: Icons.location_on,
+                  title: 'Địa chỉ',
+                  text: widget.adminAccount.diaChi,
+                  onTap: () {},
+                ),
+                SettingBoxSecondary(
+                  icon1: Icons.person,
+                  title: 'CMND',
+                  text: widget.adminAccount.cmnd.toString(),
+                  onTap: () {},
+                ),
+                SettingBoxSecondary(
+                  icon1: Icons.phone,
+                  title: 'Số điện thoại',
+                  text: widget.adminAccount.sdt,
+                  onTap: () {},
+                ),
+                SettingBoxSecondary(
                   icon1: Icons.lock,
                   title: 'Mật khẩu',
                   text: 'Thay đổi mật khẩu',
@@ -184,7 +203,7 @@ class _PersonInfoState extends State<PersonInfo> {
   void logOut() {
     FirebaseAuth.instance.signOut();
     Navigator.pushNamedAndRemoveUntil(
-        context, BottomNavi.routeName, (route) => false);
+        context, LoginPage.routeName, (route) => false);
   }
 
   void onTapChangeName() {
@@ -207,11 +226,13 @@ class _PersonInfoState extends State<PersonInfo> {
                 onTap: () {
                   AdminAccount userAcc = AdminAccount(
                     hoTen: nameController.text,
-                    gioiTinh: widget.adminAccount.gioiTinh,
+                    ngaySinh: widget.adminAccount.ngaySinh,
                     diaChi: widget.adminAccount.diaChi,
+                    cmnd: widget.adminAccount.cmnd,
+                    sdt: widget.adminAccount.sdt,
+                    gioiTinh: widget.adminAccount.gioiTinh,
                     avatar: widget.adminAccount.avatar,
                     email: widget.adminAccount.email,
-                    sdt:widget.adminAccount.sdt,
                     maCty: widget.adminAccount.maCty,
                   );
                   addtoServer(userAcc);

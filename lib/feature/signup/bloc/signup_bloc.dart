@@ -12,6 +12,8 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
   final TextEditingController usernameController = TextEditingController();
   final TextEditingController pwController = TextEditingController();
   final TextEditingController maCtyController = TextEditingController();
+  final TextEditingController diaChiController = TextEditingController();
+  final TextEditingController cmndController = TextEditingController();
   final formKey = GlobalKey<FormState>();
   SignupBloc() : super(SignupInitial()) {
     on<SignupVisibilityEvent>((event, emit) {
@@ -23,14 +25,15 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
             .createUserWithEmailAndPassword(
                 email: usernameController.text, password: pwController.text);
         if (user.user?.uid != null) {
-          
           AdminAccount userAccount = AdminAccount(
             hoTen: nameController.text,
+            ngaySinh: DateTime.now(),
+            diaChi: diaChiController.text,
+            cmnd: int.parse(cmndController.text),
+            sdt: phoneNumbereController.text,
             gioiTinh: '',
-            diaChi: '',
             avatar: '',
             email: usernameController.text,
-            sdt: phoneNumbereController.text,
             maCty: maCtyController.text,
           );
           await FirebaseFirestore.instance

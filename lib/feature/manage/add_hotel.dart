@@ -16,7 +16,6 @@ import 'package:booking_admin/data/hotels.dart';
 import 'package:booking_admin/data/location.dart';
 import 'package:booking_admin/source/call_api/booking_api.dart';
 import 'package:booking_admin/source/colors.dart';
-import 'package:tiengviet/tiengviet.dart';
 
 class AddHotel extends StatefulWidget {
   const AddHotel({
@@ -38,8 +37,7 @@ class _AddHotelState extends State<AddHotel> {
     imageKS = widget.hotel?.anhKS ?? '';
     nameHotelController.text = widget.hotel?.tenKS ?? '';
     addHotelController.text = widget.hotel?.diaChi ?? '';
-    city = widget.hotel?.thanhPho ?? '';
-    locationCode = widget.hotel?.maDiaDiem ?? '';
+    city = widget.hotel?.thanhPho ?? location[0].name;
     descriptionController.text = widget.hotel?.moTa ?? '';
     priceController.text = (widget.hotel?.giaKS ?? '').toString();
   }
@@ -83,9 +81,7 @@ class _AddHotelState extends State<AddHotel> {
     }
   }
 
-  String? cityDropSelect;
   String city = '';
-  String locationCode = '';
   String imageKS = '';
   final TextEditingController nameHotelController = TextEditingController();
   final TextEditingController addHotelController = TextEditingController();
@@ -166,20 +162,16 @@ class _AddHotelState extends State<AddHotel> {
                         ),
                         DropdownSelect(
                           title: 'Thành phố',
-                          value: cityDropSelect,
+                          value: city,
                           onChanged: (value) {
-                            List<String> values = (value.toString()).split('-');
                             setState(() {
-                              cityDropSelect = value.toString();
-                              city = values[0];
-                              locationCode = values[1];
+                              city = value.toString();
                             });
                           },
-                          items: location.map((Locations newValue) {
+                          items: location.map((e) {
                             return DropdownMenuItem(
-                              value:
-                                  '${newValue.name}-${newValue.locationCode}',
-                              child: Text(newValue.name),
+                              value: e.name,
+                              child: Text(e.name),
                             );
                           }).toList(),
                         ),
@@ -232,32 +224,28 @@ class _AddHotelState extends State<AddHotel> {
   void onTapAddHotel() async {
     if (formKey.currentState!.validate()) {
       if (user != null) {
-        if (cityDropSelect != null) {
-          showDialog(
-            context: context,
-            builder: (context) {
-              return const AlertDialog(
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(16))),
-                title: Icon(Icons.check_circle,
-                    size: 50, color: AppColors.primary),
-                content: Text('Thành công', textAlign: TextAlign.center),
-              );
-            },
-          );
-          await BookingRepo.addHotels(
-            nameHotelController.text,
-            addHotelController.text,
-            city,
-            locationCode,
-            int.parse(priceController.text),
-            imageKS,
-            adminAccount?.maCty ?? '',
-            descriptionController.text,
-            TiengViet.parse(nameHotelController.text),
-          );
-          onTapBack();
-        }
+        showDialog(
+          context: context,
+          builder: (context) {
+            return const AlertDialog(
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(16))),
+              title:
+                  Icon(Icons.check_circle, size: 50, color: AppColors.primary),
+              content: Text('Thành công', textAlign: TextAlign.center),
+            );
+          },
+        );
+        await BookingRepo.addHotels(
+          nameHotelController.text,
+          addHotelController.text,
+          city,
+          int.parse(priceController.text),
+          imageKS,
+          adminAccount?.maCty ?? '',
+          descriptionController.text,
+        );
+        onTapBack();
       }
     }
   }
@@ -265,33 +253,29 @@ class _AddHotelState extends State<AddHotel> {
   void onTapEditHotel() async {
     if (formKey.currentState!.validate()) {
       if (user != null) {
-        if (cityDropSelect != null) {
-          showDialog(
-            context: context,
-            builder: (context) {
-              return const AlertDialog(
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(16))),
-                title: Icon(Icons.check_circle,
-                    size: 50, color: AppColors.primary),
-                content: Text('Thành công', textAlign: TextAlign.center),
-              );
-            },
-          );
-          await BookingRepo.editHotels(
-            widget.hotel!.idKS,
-            nameHotelController.text,
-            addHotelController.text,
-            city,
-            locationCode,
-            int.parse(priceController.text),
-            imageKS,
-            widget.hotel!.maKS,
-            descriptionController.text,
-            TiengViet.parse(nameHotelController.text),
-          );
-          onTapBack();
-        }
+        showDialog(
+          context: context,
+          builder: (context) {
+            return const AlertDialog(
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(16))),
+              title:
+                  Icon(Icons.check_circle, size: 50, color: AppColors.primary),
+              content: Text('Thành công', textAlign: TextAlign.center),
+            );
+          },
+        );
+        await BookingRepo.editHotels(
+          widget.hotel!.idKS,
+          nameHotelController.text,
+          addHotelController.text,
+          city,
+          int.parse(priceController.text),
+          imageKS,
+          widget.hotel!.maKS,
+          descriptionController.text,
+        );
+        onTapBack();
       }
     }
   }

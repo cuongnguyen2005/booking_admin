@@ -3,30 +3,36 @@ import 'dart:convert';
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 class AdminAccount {
   String hoTen;
-  String gioiTinh;
+  DateTime ngaySinh;
   String diaChi;
+  int cmnd;
+  String sdt;
+  String gioiTinh;
   String avatar;
   String email;
-  String sdt;
   String maCty;
   AdminAccount({
     required this.hoTen,
-    required this.gioiTinh,
+    required this.ngaySinh,
     required this.diaChi,
+    required this.cmnd,
+    required this.sdt,
+    required this.gioiTinh,
     required this.avatar,
     required this.email,
-    required this.sdt,
     required this.maCty,
   });
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
       'hoTen': hoTen,
-      'gioiTinh': gioiTinh,
+      'ngaySinh': ngaySinh.toIso8601String(),
       'diaChi': diaChi,
+      'cmnd': cmnd,
+      'sdt': sdt,
+      'gioiTinh': gioiTinh,
       'avatar': avatar,
       'email': email,
-      'sdt': sdt,
       'maCty': maCty,
     };
   }
@@ -34,11 +40,13 @@ class AdminAccount {
   factory AdminAccount.fromMap(map) {
     return AdminAccount(
       hoTen: map['hoTen'] as String,
-      gioiTinh: map['gioiTinh'] as String,
+      ngaySinh: DateTime.parse(map['ngaySinh']),
       diaChi: map['diaChi'] as String,
+      cmnd: map['cmnd'] as int,
+      sdt: map['sdt'] as String,
+      gioiTinh: map['gioiTinh'] as String,
       avatar: map['avatar'] as String,
       email: map['email'] as String,
-      sdt: map['sdt'] as String,
       maCty: map['maCty'] as String,
     );
   }

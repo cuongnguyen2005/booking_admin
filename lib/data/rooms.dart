@@ -4,33 +4,36 @@ import 'dart:convert';
 class Rooms {
   String idPhong;
   String tenPhong;
-  String thanhPho;
   int giaPhong;
-  String kieuPhong;
+  String loaiGiuong;
+  int soLuongGiuong;
   String anhPhong;
+  int soLuongNguoi;
+  int dienTichPhong;
   String idKS;
-  String maKS;
   Rooms({
     required this.idPhong,
     required this.tenPhong,
-    required this.thanhPho,
     required this.giaPhong,
-    required this.kieuPhong,
+    required this.loaiGiuong,
+    required this.soLuongGiuong,
     required this.anhPhong,
+    required this.soLuongNguoi,
+    required this.dienTichPhong,
     required this.idKS,
-    required this.maKS,
   });
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
       'idPhong': idPhong,
       'tenPhong': tenPhong,
-      'thanhPho': thanhPho,
-      'gia': giaPhong,
-      'kieuPhong': kieuPhong,
-      'anhKS': anhPhong,
+      'giaPhong': giaPhong,
+      'loaiGiuong': loaiGiuong,
+      'soLuongGiuong': soLuongGiuong,
+      'anhPhong': anhPhong,
+      'soLuongNguoi': soLuongNguoi,
+      'dienTichPhong': dienTichPhong,
       'idKS': idKS,
-      'maKS': maKS,
     };
   }
 
@@ -38,12 +41,13 @@ class Rooms {
     return Rooms(
       idPhong: map['idPhong'] as String,
       tenPhong: map['tenPhong'] as String,
-      thanhPho: map['thanhPho'] as String,
-      giaPhong: map['gia'] as int,
-      kieuPhong: map['kieuPhong'] as String,
-      anhPhong: map['anhKS'] as String,
+      giaPhong: map['giaPhong'] as int,
+      loaiGiuong: map['loaiGiuong'] as String,
+      soLuongGiuong: map['soLuongGiuong'] as int,
+      anhPhong: map['anhPhong'] as String,
+      soLuongNguoi: map['soLuongNguoi'] as int,
+      dienTichPhong: map['dienTichPhong'] as int,
       idKS: map['idKS'] as String,
-      maKS: map['maKS'] as String,
     );
   }
 
