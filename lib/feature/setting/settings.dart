@@ -4,6 +4,7 @@ import 'package:booking_admin/components/top_bar/topbar_third.dart';
 import 'package:booking_admin/data/admin_account.dart';
 import 'package:booking_admin/feature/login/login.dart';
 import 'package:booking_admin/feature/setting/person_info.dart';
+import 'package:booking_admin/feature/statis.dart';
 import 'package:booking_admin/source/colors.dart';
 import 'package:booking_admin/source/typo.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -108,9 +109,9 @@ class _SettingsState extends State<Settings> {
                 ),
                 const SizedBox(height: 16),
                 SettingBoxPrimary(
-                  icon1: Icons.money,
-                  title: 'Hoàn tiền',
-                  onTap: () {},
+                  icon1: Icons.circle,
+                  title: 'Thống kê',
+                  onTap: onTapStatis,
                 ),
                 SettingBoxPrimary(
                   icon1: Icons.wallet,
@@ -147,5 +148,9 @@ class _SettingsState extends State<Settings> {
   void onTapShowInfoUser() {
     Navigator.pushNamed(context, PersonInfo.routeName, arguments: adminAccount)
         .then((value) => getInfo());
+  }
+
+  void onTapStatis() {
+    Navigator.pushNamed(context, StatisPage.routeName);
   }
 }

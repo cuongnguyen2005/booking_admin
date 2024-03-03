@@ -242,7 +242,7 @@ class _AddHotelState extends State<AddHotel> {
           city,
           int.parse(priceController.text),
           imageKS,
-          adminAccount?.maCty ?? '',
+          adminAccount?.maKS ?? '',
           descriptionController.text,
         );
         onTapBack();

@@ -105,8 +105,13 @@ class _RoomManageState extends State<RoomManage> {
                                             ),
                                     ),
                                     const SizedBox(width: 10),
-                                    Text(roomsList[index].tenPhong,
-                                        style: tStyle.MediumBoldBlack()),
+                                    Flexible(
+                                      child: Text(
+                                        roomsList[index].tenPhong,
+                                        style: tStyle.MediumBoldBlack(),
+                                        overflow: TextOverflow.fade,
+                                      ),
+                                    ),
                                   ],
                                 ),
                               ),
@@ -129,7 +134,7 @@ class _RoomManageState extends State<RoomManage> {
                                         ),
                                         const SizedBox(width: 5),
                                         Text(
-                                            'Giường ${roomsList[index].loaiGiuong} x ${roomsList[index].soLuongGiuong}',
+                                            '${roomsList[index].soLuongGiuong} giường ${roomsList[index].loaiGiuong}',
                                             style: tStyle.MediumRegularBlack()),
                                       ],
                                     ),

@@ -37,8 +37,10 @@ class _NotificationPageState extends State<NotificationPage> {
       });
     });
     List<NotificationClass> notifiListAPI = await BookingRepo.getNotifi();
+    //sort list by date
+    notifiListAPI.sort((b, a) => a.dateTime.compareTo(b.dateTime));
     for (var element in notifiListAPI) {
-      if (element.maCty == adminAccount!.maCty) {
+      if (element.maCty == adminAccount!.maKS) {
         setState(() {
           notifiList.add(element);
         });
@@ -69,16 +71,29 @@ class _NotificationPageState extends State<NotificationPage> {
                   ),
                   child: Row(
                     children: [
-                      const Icon(Icons.notifications, color: AppColors.red),
+                      const Icon(
+                        Icons.notifications,
+                        color: AppColors.red,
+                        size: 40,
+                      ),
                       const SizedBox(width: 5),
                       Flexible(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.end,
                           children: [
-                            Text(
-                              'Bạn có đơn mới của khách sạn ${notifiList[index].tenKS} được đặt vào ngày ${DateFormat.yMd().format(notifiList[index].dateCheckIn)}',
-                              style: tStyle.MediumBoldBlack(),
-                              overflow: TextOverflow.fade,
+                            RichText(
+                              text: TextSpan(
+                                  text: 'Bạn có đơn mới của khách sạn ',
+                                  style: tStyle.MediumRegularBlack(),
+                                  children: <TextSpan>[
+                                    TextSpan(
+                                        text: notifiList[index].tenKS,
+                                        style: tStyle.MediumBoldBlack()),
+                                    TextSpan(
+                                        text:
+                                            ' được đặt vào ngày ${notifiList[index].dateCheckIn.day}/${notifiList[index].dateCheckIn.month}/${notifiList[index].dateCheckIn.year}',
+                                        style: tStyle.MediumRegularBlack()),
+                                  ]),
                             ),
                             const SizedBox(height: 5),
                             Row(

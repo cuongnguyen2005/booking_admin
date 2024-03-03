@@ -312,6 +312,10 @@ class _AddRoomState extends State<AddRoom> {
       nameHotelController.clear();
       priceController.clear();
       imageRoom = '';
+      soLuongNguoi = 1;
+      soLuongGiuong = 1;
+      dienTichPhong = 0;
+      setState(() {});
     }
   }
 

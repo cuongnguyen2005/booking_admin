@@ -88,7 +88,7 @@ class _DetailPaymentState extends State<DetailPayment> {
                         nameHotel: widget.booking.tenKS,
                         nameRoom:
                             '${widget.booking.tenPhong}  x ${widget.booking.soLuongPhong}',
-                        dienTich: '${widget.booking.dienTichPhong}',
+                        dienTich: '${widget.booking.dienTichPhong} m2',
                         night: '${widget.booking.soDem} đêm',
                         people: '${widget.booking.soLuongNguoi}  người',
                         roomType: widget.booking.loaiGiuong,

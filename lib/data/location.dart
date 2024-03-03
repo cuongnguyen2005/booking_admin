@@ -12,5 +12,5 @@ List<Locations> location = [
   Locations(name: 'Nha Trang'),
   Locations(name: 'Hội An'),
   Locations(name: 'Vinh'),
-  Locations(name: 'Hồ chí Minh'),
+  Locations(name: 'Hồ Chí Minh'),
 ];

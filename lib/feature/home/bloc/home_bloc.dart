@@ -25,7 +25,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
       List<Hotels> curHotelsList = [];
       List<Hotels> hotelsListAPI = await BookingRepo.getHotels();
       for (var element in hotelsListAPI) {
-        if (element.maKS == adminAccount?.maCty) {
+        if (element.maKS == adminAccount?.maKS) {
           curHotelsList.add(element);
         }
       }

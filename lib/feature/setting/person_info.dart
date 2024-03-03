@@ -62,7 +62,7 @@ class _PersonInfoState extends State<PersonInfo> {
         gioiTinh: widget.adminAccount.gioiTinh,
         avatar: imageUrl,
         email: widget.adminAccount.email,
-        maCty: widget.adminAccount.maCty,
+        maKS: widget.adminAccount.maKS,
       );
       //save to firestore
       addtoServer(userAcc);
@@ -186,7 +186,7 @@ class _PersonInfoState extends State<PersonInfo> {
                   onTap: () {},
                 ),
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 10),
+                  padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
                   child: ButtonPrimary(
                     text: 'Đăng xuất',
                     onTap: logOut,
@@ -233,7 +233,7 @@ class _PersonInfoState extends State<PersonInfo> {
                     gioiTinh: widget.adminAccount.gioiTinh,
                     avatar: widget.adminAccount.avatar,
                     email: widget.adminAccount.email,
-                    maCty: widget.adminAccount.maCty,
+                    maKS: widget.adminAccount.maKS,
                   );
                   addtoServer(userAcc);
                   AdminAccount? userAccDt;

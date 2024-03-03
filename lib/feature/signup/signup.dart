@@ -82,60 +82,6 @@ class _SignupPageState extends State<SignupPage> {
                         child: Column(
                           children: [
                             InputDefault(
-                              hintText: 'Nhập tên của bạn',
-                              obscureText: false,
-                              validator: ValidateUntils.validateName,
-                              autovalidateMode:
-                                  AutovalidateMode.onUserInteraction,
-                              controller:
-                                  context.read<SignupBloc>().nameController,
-                            ),
-                            const SizedBox(height: 16),
-                            InputDefault(
-                              hintText: 'Nhập số điện thoại',
-                              obscureText: false,
-                              validator: ValidateUntils.validatePhonenumber,
-                              autovalidateMode:
-                                  AutovalidateMode.onUserInteraction,
-                              controller: context
-                                  .read<SignupBloc>()
-                                  .phoneNumbereController,
-                            ),
-                            const SizedBox(height: 16),
-                            InputDefault(
-                              hintText: 'Nhập CMND',
-                              obscureText: false,
-                              validator: ValidateUntils.validateName,
-                              autovalidateMode:
-                                  AutovalidateMode.onUserInteraction,
-                              controller: context
-                                  .read<SignupBloc>()
-                                  .cmndController,
-                            ),
-                            const SizedBox(height: 16),
-                            InputDefault(
-                              hintText: 'Nhập địa chỉ',
-                              obscureText: false,
-                              validator: ValidateUntils.validateName,
-                              autovalidateMode:
-                                  AutovalidateMode.onUserInteraction,
-                              controller: context
-                                  .read<SignupBloc>()
-                                  .diaChiController,
-                            ),
-                            const SizedBox(height: 16),
-                            InputDefault(
-                              hintText: 'Nhập mã công ty',
-                              obscureText: false,
-                              validator: ValidateUntils.validateName,
-                              autovalidateMode:
-                                  AutovalidateMode.onUserInteraction,
-                              controller: context
-                                  .read<SignupBloc>()
-                                  .maCtyController,
-                            ),
-                            const SizedBox(height: 16),
-                            InputDefault(
                               hintText: 'Nhập email',
                               obscureText: false,
                               validator: ValidateUntils.validateEmail,
@@ -163,6 +109,57 @@ class _SignupPageState extends State<SignupPage> {
                                   ),
                                 );
                               },
+                            ),
+                            const SizedBox(height: 16),
+                            InputDefault(
+                              hintText: 'Nhập tên của bạn',
+                              obscureText: false,
+                              validator: ValidateUntils.validateName,
+                              autovalidateMode:
+                                  AutovalidateMode.onUserInteraction,
+                              controller:
+                                  context.read<SignupBloc>().nameController,
+                            ),
+                            const SizedBox(height: 16),
+                            InputDefault(
+                              hintText: 'Nhập số điện thoại',
+                              obscureText: false,
+                              validator: ValidateUntils.validatePhonenumber,
+                              autovalidateMode:
+                                  AutovalidateMode.onUserInteraction,
+                              controller: context
+                                  .read<SignupBloc>()
+                                  .phoneNumbereController,
+                            ),
+                            const SizedBox(height: 16),
+                            InputDefault(
+                              hintText: 'Nhập CMND',
+                              obscureText: false,
+                              validator: ValidateUntils.validateName,
+                              autovalidateMode:
+                                  AutovalidateMode.onUserInteraction,
+                              controller:
+                                  context.read<SignupBloc>().cmndController,
+                            ),
+                            const SizedBox(height: 16),
+                            InputDefault(
+                              hintText: 'Nhập địa chỉ',
+                              obscureText: false,
+                              validator: ValidateUntils.validateName,
+                              autovalidateMode:
+                                  AutovalidateMode.onUserInteraction,
+                              controller:
+                                  context.read<SignupBloc>().diaChiController,
+                            ),
+                            const SizedBox(height: 16),
+                            InputDefault(
+                              hintText: 'Nhập mã khách sạn',
+                              obscureText: false,
+                              validator: ValidateUntils.validateName,
+                              autovalidateMode:
+                                  AutovalidateMode.onUserInteraction,
+                              controller:
+                                  context.read<SignupBloc>().maCtyController,
                             ),
                           ],
                         ),

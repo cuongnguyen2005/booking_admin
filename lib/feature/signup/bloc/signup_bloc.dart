@@ -34,7 +34,7 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
             gioiTinh: '',
             avatar: '',
             email: usernameController.text,
-            maCty: maCtyController.text,
+            maKS: maCtyController.text,
           );
           await FirebaseFirestore.instance
               .collection('admins')

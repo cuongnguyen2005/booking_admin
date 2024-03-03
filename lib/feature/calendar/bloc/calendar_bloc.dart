@@ -24,11 +24,13 @@ class CalendarBloc extends Bloc<CalendarEvent, CalendarState> {
         adminAccount = AdminAccount.fromMap(value.data());
       });
       List<Booking> listBookingApi = await BookingRepo.getBookingByUser();
+      //sort list by date
+      listBookingApi.sort((b, a) => a.ngayNhan.compareTo(b.ngayNhan));
       List<Booking> curListBooking = [];
       for (var element in listBookingApi) {
         if (element.ngayNhan.month == today.month &&
             element.ngayNhan.year == today.year &&
-            element.maKS == adminAccount!.maCty) {
+            element.maKS == adminAccount!.maKS) {
           curListBooking.add(element);
         }
       }

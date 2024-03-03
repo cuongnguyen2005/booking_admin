@@ -48,7 +48,7 @@ class _SearchBookingPageState extends State<SearchBookingPage> {
 
     List<Booking> curListBooking = [];
     for (var element in listBookingApi) {
-      if (element.maKS == adminAccount!.maCty) {
+      if (element.maKS == adminAccount!.maKS) {
         curListBooking.add(element);
       }
     }

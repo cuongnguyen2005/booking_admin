@@ -10,7 +10,7 @@ class AdminAccount {
   String gioiTinh;
   String avatar;
   String email;
-  String maCty;
+  String maKS;
   AdminAccount({
     required this.hoTen,
     required this.ngaySinh,
@@ -20,7 +20,7 @@ class AdminAccount {
     required this.gioiTinh,
     required this.avatar,
     required this.email,
-    required this.maCty,
+    required this.maKS,
   });
 
   Map<String, dynamic> toMap() {
@@ -33,7 +33,7 @@ class AdminAccount {
       'gioiTinh': gioiTinh,
       'avatar': avatar,
       'email': email,
-      'maCty': maCty,
+      'maKS': maKS,
     };
   }
 
@@ -47,7 +47,7 @@ class AdminAccount {
       gioiTinh: map['gioiTinh'] as String,
       avatar: map['avatar'] as String,
       email: map['email'] as String,
-      maCty: map['maCty'] as String,
+      maKS: map['maKS'] as String,
     );
   }
 
