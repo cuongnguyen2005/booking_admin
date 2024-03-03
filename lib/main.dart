@@ -1,4 +1,4 @@
-import 'package:booking_admin/feature/login/login.dart';
+import 'package:booking_admin/feature/splash_page.dart';
 import 'package:booking_admin/routes.dart';
 import 'package:booking_admin/source/colors.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -26,7 +26,7 @@ class MyApp extends StatelessWidget {
         scaffoldBackgroundColor: AppColors.lightGrey.withOpacity(1),
         fontFamily: 'Roboto',
       ),
-      initialRoute: LoginPage.routeName,
+      initialRoute: SplashScreen.routeName,
       onGenerateRoute: onGenerateRoute,
     );
   }

@@ -12,6 +12,7 @@ import 'package:booking_admin/feature/seach_booking.dart';
 import 'package:booking_admin/feature/setting/person_info.dart';
 import 'package:booking_admin/feature/signup/bloc/signup_bloc.dart';
 import 'package:booking_admin/feature/signup/signup.dart';
+import 'package:booking_admin/feature/splash_page.dart';
 import 'package:booking_admin/feature/statis.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -83,6 +84,9 @@ Route<dynamic>? Function(RouteSettings)? onGenerateRoute = (settings) {
   }
   if (settings.name == StatisPage.routeName) {
     return MaterialPageRoute(builder: (_) => const StatisPage());
+  }
+  if (settings.name == SplashScreen.routeName) {
+    return MaterialPageRoute(builder: (_) => const SplashScreen());
   }
 
   return null;
